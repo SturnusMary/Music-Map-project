@@ -3,6 +3,6 @@
   
    Plans for near future:
 1) redo functions in react classes;
-2) make an animation of the sitebar;
-3) display information from the database in the sitebar;
+2) make an animation of the sidebar;
+3) display information from the database in the sidebar;
 4) create animation for select.
