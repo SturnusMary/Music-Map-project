@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css?family=Allerta+Stencil&display=swap');
+*, :after, :before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    list-style:none;
+}
+
+body {
+    overflow: hidden;
+    background-image: url('./img/back1.png');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 100vh;
+}
+.wrapper {
+    max-width: 1920px;
+    margin: 0 auto;
+}

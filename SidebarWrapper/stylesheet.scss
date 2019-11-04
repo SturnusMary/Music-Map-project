@@ -1,0 +1,26 @@
+#sidebar-wrapper {
+    z-index: 2;
+    position: fixed;
+    width: 0;
+    height: 100%;
+    background: #f79533;
+    border-right: 1px solid #000;
+}
+@media (min-width: 768px) {
+    #sidebar-wrapper {
+        width: 50px;
+    }
+}
+.sidebar-middle-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+}
+.sidebar-nav-top {
+    margin-bottom: auto;
+}
+                                                        /*BUTTON*/
+#play {
+    width: 40px;
+}

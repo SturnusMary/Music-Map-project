@@ -1,0 +1,25 @@
+{
+  "name": "lesson_13",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel ./index.html",
+    "built": "rimraf dist && parcel built ./index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^1.12.4",
+    "rimraf": "^3.0.0",
+    "sass": "^1.23.0"
+  },
+  "dependencies": {
+    "postcss-modules": "^1.4.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "uuid": "^3.3.3"
+  }
+}
