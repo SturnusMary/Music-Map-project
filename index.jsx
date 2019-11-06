@@ -15,6 +15,7 @@ class App extends React.Component {
         }
         this.onTimeChange = this.onTimeChange.bind(this);
         this.onPlaceChange = this.onPlaceChange.bind(this);
+        this.items = [1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010];
     }
     onTimeChange(time){
         this.setState({
@@ -33,8 +34,12 @@ class App extends React.Component {
         return(
             <React.Fragment>
                 <SidebarWrapper time={time} place={place}></SidebarWrapper>
-                {/* items={items} active={0} decade={0}  */}
-                <SelectWrapper  onTimeChange={this.onTimeChange}></SelectWrapper>
+                <SelectWrapper 
+                    items={this.items}
+                    active={0}
+                    decade={0}
+                    onTimeChange={this.onTimeChange}>
+                </SelectWrapper>
                 <main>
                     <MapElement onPlaceChange={this.onPlaceChange}></MapElement>
                 </main>
@@ -42,7 +47,7 @@ class App extends React.Component {
         )
     }
 }
-// let items = [1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010];
+
 ReactDOM.render(
    <div className="wrapper">
       <App></App>
