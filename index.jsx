@@ -33,24 +33,28 @@ class App extends React.Component {
         const { time, place } = this.state;
         return(
             <React.Fragment>
+
+                <main>
+                <aside>
                 <SidebarWrapper time={time} place={place}></SidebarWrapper>
+                </aside>
                 <SelectWrapper 
                     items={this.items}
                     active={0}
                     decade={0}
-                    onTimeChange={this.onTimeChange}>
-                </SelectWrapper>
-                <main>
-                    <MapElement onPlaceChange={this.onPlaceChange}></MapElement>
+                    onTimeChange={this.onTimeChange} />
+                    <MapElement onPlaceChange={this.onPlaceChange} />
                 </main>
+
             </React.Fragment>
         )
     }
 }
 
 ReactDOM.render(
-   <div className="wrapper">
-      <App></App>
-   </div>,
+    <div className="container">
+
+        <App />
+    </div>,
    document.getElementById('root')
 );
