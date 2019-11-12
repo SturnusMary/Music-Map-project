@@ -4,7 +4,7 @@
     src: url(https://yoksel.github.io/variable-fonts/assets/fonts/KairosSans/KairosSans_Variable.ttf) format("truetype");
 }
 //font-family: 'Allerta Stencil', sans-serif;
-
+@import url('https://fonts.googleapis.com/css?family=Bitter:400,700&display=swap');
 
 #carousel {
     position: fixed;
@@ -17,6 +17,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+   
     font-family: 'Allerta Stencil', sans-serif;
     // font-family: KairosSans;
 }
@@ -36,6 +37,9 @@ span {
 }
 
 .item {
+    // font-family: "Bitter", serif;
+    // color: #71829e;
+    // font-weight: 700;
     text-align: center;
     color: rgb(0, 0, 0);
     transition: height 1s, width 1s, left 1s, margin-top 1s, font-size 0.3s, margin-bottom 1s, line-height 0.3s, background-color 1s;
