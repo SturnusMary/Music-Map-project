@@ -51,22 +51,9 @@ export class SidebarWrapper extends React.Component {
       const  songUrl = this.getSongUrl(finalSong);
       console.log(this.props.place, this.props.time, songUrl)
         return(
-            <div id="sidebar-wrapper">
-                 <div className="sidebar-middle-wrapper">
-                    <ul className="sidebar-nav-top">
-                        <li>
-                            <span>
-                            </span>
-                        </li>
-                    </ul>
-                  <ul className="sidebar-nav-top">
-                     <li>
-                         
-                     </li>
-                  </ul>
-                  <div>
-                     <Player src={songUrl} />
-                  </div>
+            <div id="sidebar-wrapper" className="sidebar-wrapper">
+               <div className="sidebar-content">
+                  <Player src={songUrl} />
                </div>
             </div>
         )
