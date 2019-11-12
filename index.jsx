@@ -29,6 +29,11 @@ class App extends React.Component {
         })
         console.log(this.state.place);
     }
+
+    onClickButtonSideBarShow(){
+        document.getElementById("sidebar-wrapper").classList.toggle('active')
+    }
+
     render() {
         const { time, place } = this.state;
         return(
@@ -38,6 +43,7 @@ class App extends React.Component {
                     <aside>
                         <SidebarWrapper time={time} place={place}></SidebarWrapper>
                     </aside>
+                    <button id="showSideBar" onClick={this.onClickButtonSideBarShow}></button>
                     <SelectWrapper 
                         items={this.items}
                         active={0}

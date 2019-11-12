@@ -1,25 +1,30 @@
-#sidebar-wrapper {
-  z-index: 2;
-  position: fixed;
-  width: 300px;
-  height: 100%;
-  background: #f79533;
-  border-right: 1px solid #000;
+.sidebar{
+  &-wrapper {
+    display: flex;
+    width: 50px;
+    height: 100%;
+    background: #f79533;
+    border-right: 1px solid #000;
+    transition: all .3s ease-in-out;
+    overflow: hidden;
+    &.active{
+      width: 300px;
+      transition: all .3s ease-in-out;
+
+      & > .sidebar-content{
+        transition: all .3s ease-in-out;
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+  &-content{
+    transition: all .3s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+  }
 }
-// @media (min-width: 768px) {
-//     #sidebar-wrapper {
-//         width: 50px;
-//     }
-// }
-.sidebar-middle-wrapper {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  height: 100%;
-}
-.sidebar-nav-top {
-  margin-bottom: auto;
-}
+
                                                       /*BUTTON*/
 #play {
   width: 40px;
