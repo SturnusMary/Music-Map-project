@@ -2,21 +2,13 @@ import React from 'react';
 import s from './stylesheet.scss';
 import PropTypes from 'prop-types';
 import db from '../db.json';
-import sideBarAnim from './animation'
+import {Player} from './player';
 
 
 export class SidebarWrapper extends React.Component {
    constructor(props){
       super(props);
       this.dbOfSongs = db.songs;
-
-      this.state = {
-         show: false
-      }
-   }
-
-   componentDidMount(){
-   sideBarAnim();
    }
 
    filterByPlace(place){
@@ -47,7 +39,7 @@ export class SidebarWrapper extends React.Component {
       let url;
       for(let key in obj) {
          if(key == 'songUrl') {
-            url = `${obj[key]}?autoplay=1&autohide=1`;
+            url = obj[key].split('https://youtube.com/embed/')[1];
             return url;
           }
       }
@@ -60,19 +52,7 @@ export class SidebarWrapper extends React.Component {
       console.log(this.props.place, this.props.time, songUrl)
         return(
             <div id="sidebar-wrapper">
-
-            <svg class="sidebar" id='sidebar' viewBox="0 0 50 500">
-                     <path class="s-path" id="path" fill="lightblue" d="M0,0 50,0 a0,250 0 1,1 0,500 L0,500" />
-                  </svg>
-
-                  <div class="static">
-                     
-                  </div>
-
-                  <div class="sidebar-content" id="sidebar-content">
-                  <iframe id="iframe" src={songUrl || null}  ></iframe>
-                  </div>
-                 {/* <div className="sidebar-middle-wrapper">
+                 <div className="sidebar-middle-wrapper">
                     <ul className="sidebar-nav-top">
                         <li>
                             <span>
@@ -81,10 +61,13 @@ export class SidebarWrapper extends React.Component {
                     </ul>
                   <ul className="sidebar-nav-top">
                      <li>
+                         
                      </li>
                   </ul>
-                  <iframe id="iframe" src={songUrl || null} style={{display:'none'}} ></iframe>
-               </div> */}
+                  <div>
+                     <Player src={songUrl} />
+                  </div>
+               </div>
             </div>
         )
     }
