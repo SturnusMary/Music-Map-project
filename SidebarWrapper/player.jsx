@@ -6,12 +6,11 @@ export class Player extends React.Component {
     constructor(props) {
         super(props);
         this.state = ({valueTime: '0', valueVolume: ''});
-        // this.currentTimeSliding = false;
+    
         this.youTubePlayerCurrentTimeChange = this.youTubePlayerCurrentTimeChange.bind(this);
         this.youTubePlayerVolumeChange = this.youTubePlayerVolumeChange.bind(this);
         this.youTubePlayerDisplayInfos = this.youTubePlayerDisplayInfos.bind(this);
         
-        // this.personalPlayer = {currentTimeSliding: false};
         this.youTubePlayerPause = this.youTubePlayerPause.bind(this);
         this.youTubePlayerPlay = this.youTubePlayerPlay.bind(this);
 
