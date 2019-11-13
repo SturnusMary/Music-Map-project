@@ -32,9 +32,16 @@ header{
     display: flex;
 }
 main {
-    
+    display: flex;
 	flex: 1 0 auto;
 }
 footer {
 	flex: 0 0 auto;
+}
+
+#showSideBar{
+    width: 30px;
+    height: 30px;
+    background:#000;
+    display: flex;
 }
