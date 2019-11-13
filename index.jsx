@@ -33,7 +33,7 @@ class App extends React.Component {
     onClickButtonSideBarShow(){
         document.getElementById("sidebar-wrapper").classList.toggle('active')
     }
-    
+  
     render() {
         const { time, place } = this.state;
         return(

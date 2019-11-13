@@ -56,7 +56,6 @@ export class SidebarWrapper extends React.Component {
             <div id="sidebar-wrapper" className="sidebar-wrapper">
                <div className="sidebar-content">
                   <Player {...finalSong} src={songUrl} />
-             
                </div>
             </div>
         )
