@@ -1,9 +1,7 @@
 import React from 'react';
 
 let youTubePlayer;
-let timerId;
-let timerId1;
-let status;
+
 
 export class Player extends React.Component {
     constructor(props) {
