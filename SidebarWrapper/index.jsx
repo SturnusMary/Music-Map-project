@@ -29,15 +29,17 @@ export class SidebarWrapper extends React.Component {
          for(let k in arr[i]) {
             if(time == arr[i][k]) {
                objOfOneSong = arr[i];
+               console.log(arr[i])
                return objOfOneSong;
             }
          }
       }
    }
 
-   getSongUrl (obj) {
+   getData (obj) {
       let url;
       for(let key in obj) {
+
          if(key == 'songUrl') {
             url = obj[key].split('https://youtube.com/embed/')[1];
             return url;
@@ -48,12 +50,12 @@ export class SidebarWrapper extends React.Component {
    render() {
       const songs = this.filterByPlace(this.props.place || null);
       const  finalSong = this.filterByTime(this.props.time || null, songs);
-      const  songUrl = this.getSongUrl(finalSong);
-      console.log(this.props.place, this.props.time, songUrl)
+      const  songUrl = this.getData(finalSong);
+      // console.log(this.props.place, this.props.time, songUrl)
         return(
             <div id="sidebar-wrapper" className="sidebar-wrapper">
                <div className="sidebar-content">
-                  <Player src={songUrl} />
+                  <Player {...finalSong} src={songUrl} />
                </div>
             </div>
         )

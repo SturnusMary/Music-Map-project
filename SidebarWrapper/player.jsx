@@ -2,18 +2,21 @@ import React from 'react';
 
 let youTubePlayer;
 
+
 export class Player extends React.Component {
     constructor(props) {
+       
         super(props);
-        this.state = ({valueTime: '0', valueVolume: ''});
-    
+        this.state = ({valueTime: '0', valueVolume: '', duration: ''});
+  
         this.youTubePlayerCurrentTimeChange = this.youTubePlayerCurrentTimeChange.bind(this);
         this.youTubePlayerVolumeChange = this.youTubePlayerVolumeChange.bind(this);
         this.youTubePlayerDisplayInfos = this.youTubePlayerDisplayInfos.bind(this);
-        
+        this.lastVideoId;
+  
         this.youTubePlayerPause = this.youTubePlayerPause.bind(this);
         this.youTubePlayerPlay = this.youTubePlayerPlay.bind(this);
-
+        
         this.valueDuration = 0;
      
     }
@@ -30,13 +33,13 @@ export class Player extends React.Component {
             })
             
         }
-       
         youTubePlayer.then((YT) => {
             youTubePlayer = new YT.Player('YouTube-player', {
-                videoId: `N_QZNtflyJA`,
+                videoId: `bS3uSzk4VwY`,
                 height: 300,
                 width: 400,
                 playerlets: {
+                    'enablejsapi': 1,
                     'autohide': 0,
                     'cc_load_policy': 0,
                     'controls': 2,
@@ -53,10 +56,7 @@ export class Player extends React.Component {
                     'onStateChange': this.onStateChange
                 }
             })
-            // this.personalPlayer = {currentTimeSliding: false};
         });
-       
-      
     }
     onError(event) {
         console.log("onError Call: " + event + " data: " + event.data);
@@ -70,15 +70,29 @@ export class Player extends React.Component {
         document.getElementById('icon-pause').style.display ='none';
     }
     componentDidUpdate() {
+        console.log('did update')
         if (this.props.src !== this.lastVideoId) {
             youTubePlayer.loadVideoById(
                 {suggestedQuality: 'tiny', videoId: `${this.props.src}`}
             );
            this.buttonDisabled()
+       
+        //    timerId = setInterval(this.youTubePlayerDisplayInfos, 500);
+           this.setState({
+              duration: youTubePlayer.getDuration(),
+            })
             // this.setState({valueTime: youTubePlayer.getCurrentTime() && youTubePlayer.getDuration() ? youTubePlayer.getCurrentTime() * 100 / youTubePlayer.getDuration() : 0})
         }
-        this.lastVideoId = this.props.src;
         
+        // if(status =='pause'){
+        //     if (timerId ) {
+        //         clearInterval(timerId);
+               
+        //     }
+        // }
+    
+        this.lastVideoId = this.props.src;
+       
     }
     onReady(event) {
         let player = event.target;
@@ -86,6 +100,16 @@ export class Player extends React.Component {
         player.pauseVideo();
     }
     onStateChange(event) {
+        if(event.data == '1'){
+            status = 'play'
+        } else if (event.data == '2'){
+            status = 'pause'
+        }else if (event.data == '0'){
+            status = 'finished'
+        }
+     
+ 
+        // console.log(event);
         let volume = Math.round(event.target.getVolume());
         let volumeItem = document.getElementById('YouTube-player-volume');
 
@@ -113,23 +137,17 @@ export class Player extends React.Component {
     }
     
     youTubePlayerCurrentTimeChange(event) {
-        console.log(youTubePlayer.getDuration());
-        console.log(youTubePlayer.getCurrentTime());
+        console.log(event)
+        // console.log(youTubePlayer.getDuration());
+        // console.log(youTubePlayer.getCurrentTime());
        
-        // this.personalPlayer.currentTimeSliding = false;
-
         this.setState({valueTime: event.target.value})
         if (this.youTubePlayerActive()) {
             youTubePlayer.seekTo(this.state.valueTime * youTubePlayer.getDuration() / 100, true);
         }
-        document.getElementById('icon-play').style.display ='none';
-        document.getElementById('icon-pause').style.display ='block';
+        this.buttonDisabled()
     }
-    // youTubePlayerCurrentTimeSlide() {
-    //     this.personalPlayer.currentTimeSliding = true;
-    // }
-
-
+    
     youTubePlayerVolumeChange(event) {
 
         this.setState({valueVolume: event.target.value})
@@ -138,7 +156,7 @@ export class Player extends React.Component {
             youTubePlayer.setVolume(this.state.valueVolume);
         }
     }
-   
+  
      youTubePlayerDisplayInfos() {
         
         if (this.youTubePlayerActive) {
@@ -147,18 +165,18 @@ export class Player extends React.Component {
             let currentPercent = (current && duration
                                   ? current * 100 / duration
                                   : 0);
-          
-            // if (!this.personalPlayer.currentTimeSliding) {
+
                 this.setState({
                     valueTime: currentPercent,
                 })
-            // }
+
             console.log(`current${current}, duration${duration}, currentPercent${currentPercent}, this.state.valueTime${this.state.valueTime}`)
         }
 
     }
     
     render() {
+
         return (
             <div className="wrapper-player">
                     <div className="player">
@@ -166,7 +184,7 @@ export class Player extends React.Component {
                         <div className="player__top">
                             <div className="player-cover">
                                 <transition-group classNameName="transitionName">
-                                    <div className="player-cover__item"></div>
+                                    <div className="player-cover__item" style={{ backgroundImage: `url(${this.props.imageUrl})`}}></div>
                                 </transition-group>
                             </div>
                             <div className="player-controls">
@@ -202,10 +220,10 @@ export class Player extends React.Component {
                         <div className="progress">
                             <div className="progress__top">
                                 <div className="album-info">
-                                    <div className="album-info__name"></div>
-                                    <div className="album-info__track"></div>
+                                    <div className="album-info__name">{this.props.artist}</div>
+                                    <div className="album-info__track">{this.props.title}</div>
                                 </div>
-                                <div className="progress__duration"></div>
+                                <div className="progress__duration">{this.state.duration}</div>
                             </div>
                         
                             <div className="progress__time"><div>
@@ -220,7 +238,7 @@ export class Player extends React.Component {
                                     max="100"
                                     step="any"
                                     onChange={this.youTubePlayerCurrentTimeChange}
-                                    onInput={this.youTubePlayerDisplayInfos}  
+                                   
                                     />
                             </div>
                         </div>
