@@ -132,6 +132,25 @@ export class MapElement extends React.Component {
                     x="0px"
                     y="0px"
                     viewBox="0 0 1009.7 666">
+                    {/* <style type="text/css">
+                        fill: url(#gradient-horizontal)
+                    </style>
+                    <defs> */}
+                    {/* <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="513.8795" y1="695.7123" x2="513.8795" y2="160.7114" gradientTransform="matrix(1 0 0 -1 0 794.95)">
+                <stop offset="0" style="stop-color:#D96B6C" />
+                <stop offset="1" style="stop-color:#E35980" />
+            </linearGradient> */}
+                    {/* <linearGradient id="gradient-horizontal">
+                        <stop offset="0%" stop-color="var(--color-stop-1)" />
+                        <stop offset="50%" stop-color="var(--color-stop-2)" />
+                        <stop offset="100%" stop-color="var(--color-stop-3)" />
+                    </linearGradient>
+                    <linearGradient id="gradient-vertical" x2="0" y2="1">
+                        <stop offset="0%" stop-color="var(--color-stop-1)" />
+                        <stop offset="50%" stop-color="var(--color-stop-2)" />
+                        <stop offset="100%" stop-color="var(--color-stop-3)" />
+                    </linearGradient>
+                    </defs> */}
                     <filter
                         id="static_blur"
                         x="-50%"

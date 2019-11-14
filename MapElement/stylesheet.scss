@@ -9,14 +9,24 @@
 
 #map {
     width: 100%;
-    height: 100%;
 }
-path {
+#gradient-horizontal {
+    --color-stop-1: #a770ef;
+    --color-stop-2: #cf8bf3;
+    --color-stop-3: #fdb99b;
+}
+#map path {
+    fill: #ccced3;
+	transition: .7s;
+	cursor: pointer;
     stroke: rgba(255, 255, 255, 0.548);
     stroke-width: 0.4px;
 }
+#map path:hover {
+    fill: #f7c331 
+}
                                                         /*CHANGE STATE*/
-.highlight {
-    fill: white;
+ #map .highlight {
+    fill: #f7882f;
     stroke: transparent;
 }

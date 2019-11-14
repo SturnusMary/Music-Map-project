@@ -5,6 +5,7 @@ import s from './stylesheet.scss';
 import {MapElement} from './MapElement/index';
 import {SidebarWrapper} from './SidebarWrapper/index';
 import {SelectWrapper} from './SelectWrapper/index';
+import {Loader} from './Loader/index';
 
 class App extends React.Component {
     constructor(props){
@@ -12,10 +13,18 @@ class App extends React.Component {
         this.state = {
             time: '',
             place: '',
+            isLoading: true,
         }
         this.onTimeChange = this.onTimeChange.bind(this);
         this.onPlaceChange = this.onPlaceChange.bind(this);
+        this.onLoad =  this.onLoad.bind(this);
         this.items = [1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010];
+    }
+    componentDidMount() {
+        setTimeout(this.onLoad, 5000) 
+    }
+    onLoad(){
+        this.setState({isLoading: false})
     }
     onTimeChange(time){
         this.setState({
@@ -35,12 +44,12 @@ class App extends React.Component {
     }
   
     render() {
+        
         const { time, place } = this.state;
         return(
             <React.Fragment>
-
+                <Loader isLoading={this.state.isLoading} />
                 <main>
-                
                     <aside>
                         <SidebarWrapper time={time} place={place}></SidebarWrapper>
                     </aside>
