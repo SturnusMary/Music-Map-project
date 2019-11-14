@@ -3,8 +3,7 @@
     display: flex;
     width: 50px;
     height: 100%;
-    background: #f79533;
-    border-right: 1px solid #000;
+    background: #7F8688;
     transition: all .3s ease-in-out;
     overflow: hidden;
     &.active{
@@ -274,7 +273,10 @@ stroke: none;
         z-index: 2;
       }
 
-      &.-xl {
+      &.-xl { 
+          svg{
+            fill: white;
+          }
         margin-bottom: 0;
         font-size: 65px;
         // filter: drop-shadow(0 2px 8px rgba(172, 184, 204, 0.3));
@@ -309,16 +311,19 @@ stroke: none;
   display: none;
 }
 .progress {
+  
   width: 100%;
   margin-top: 0px;
   user-select: none;
   &__top {
+    display: flex;
+    flex-direction: column;
     align-items: flex-end;
     justify-content: space-between;
   }
 
   &__duration {
- 
+    align-self: flex-end;
     color: #71829e;
     font-weight: 700;
     font-size: 20px;
@@ -355,7 +360,7 @@ stroke: none;
   flex: 1;
   padding-right: 60px;
   user-select: none;
-
+  align-self: flex-start;
   @media screen and (max-width: 576px), (max-height: 500px)  {
     padding-right: 30px;
   }
@@ -589,4 +594,7 @@ input[type=range]::-ms-thumb {
 
 #YouTube-player-volume {
   width: 100%;
+}
+.current-time {
+  margin-top: 10px;
 }

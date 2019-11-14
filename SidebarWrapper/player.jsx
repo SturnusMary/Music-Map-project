@@ -2,23 +2,18 @@ import React from 'react';
 
 let youTubePlayer;
 
-
 export class Player extends React.Component {
     constructor(props) {
-       
         super(props);
         this.state = ({valueTime: '0', valueVolume: '', duration: ''});
-  
         this.youTubePlayerCurrentTimeChange = this.youTubePlayerCurrentTimeChange.bind(this);
         this.youTubePlayerVolumeChange = this.youTubePlayerVolumeChange.bind(this);
         this.youTubePlayerDisplayInfos = this.youTubePlayerDisplayInfos.bind(this);
         this.lastVideoId;
-  
+
         this.youTubePlayerPause = this.youTubePlayerPause.bind(this);
         this.youTubePlayerPlay = this.youTubePlayerPlay.bind(this);
-        
-        this.valueDuration = 0;
-     
+        this.onStateChange =  this.onStateChange.bind(this);
     }
     componentDidMount() {
         if (!youTubePlayer) {
@@ -33,6 +28,7 @@ export class Player extends React.Component {
             })
             
         }
+        
         youTubePlayer.then((YT) => {
             youTubePlayer = new YT.Player('YouTube-player', {
                 videoId: `bS3uSzk4VwY`,
@@ -58,47 +54,41 @@ export class Player extends React.Component {
             })
         });
     }
+
     onError(event) {
         console.log("onError Call: " + event + " data: " + event.data);
     }
+
     buttonDisabled(){
         document.getElementById('icon-play').style.display ='none';
         document.getElementById('icon-pause').style.display ='block';
     }
+
     buttonEnabled(){
         document.getElementById('icon-play').style.display ='block';
         document.getElementById('icon-pause').style.display ='none';
     }
+
     componentDidUpdate() {
-        console.log('did update')
         if (this.props.src !== this.lastVideoId) {
             youTubePlayer.loadVideoById(
                 {suggestedQuality: 'tiny', videoId: `${this.props.src}`}
             );
            this.buttonDisabled()
-       
-        //    timerId = setInterval(this.youTubePlayerDisplayInfos, 500);
            this.setState({
-              duration: youTubePlayer.getDuration(),
-            })
+            duration: youTubePlayer.getDuration(),
+          })
             // this.setState({valueTime: youTubePlayer.getCurrentTime() && youTubePlayer.getDuration() ? youTubePlayer.getCurrentTime() * 100 / youTubePlayer.getDuration() : 0})
         }
-        
-        // if(status =='pause'){
-        //     if (timerId ) {
-        //         clearInterval(timerId);
-               
-        //     }
-        // }
-    
-        this.lastVideoId = this.props.src;
-       
+        this.lastVideoId = this.props.src; 
     }
+
     onReady(event) {
         let player = event.target;
         player.loadVideoById({suggestedQuality: 'tiny', videoId: `${this.props.src}`});
         player.pauseVideo();
     }
+    
     onStateChange(event) {
         if(event.data == '1'){
             status = 'play'
@@ -107,9 +97,13 @@ export class Player extends React.Component {
         }else if (event.data == '0'){
             status = 'finished'
         }
-     
- 
-        // console.log(event);
+        if (status === 'play') {
+            this.timerId = setInterval(this.youTubePlayerDisplayInfos, 500);
+            
+        } else {
+            clearInterval(this.timerId);
+        }
+      
         let volume = Math.round(event.target.getVolume());
         let volumeItem = document.getElementById('YouTube-player-volume');
 
@@ -137,19 +131,15 @@ export class Player extends React.Component {
     }
     
     youTubePlayerCurrentTimeChange(event) {
-        console.log(event)
-        // console.log(youTubePlayer.getDuration());
-        // console.log(youTubePlayer.getCurrentTime());
-       
+        
         this.setState({valueTime: event.target.value})
         if (this.youTubePlayerActive()) {
-            youTubePlayer.seekTo(this.state.valueTime * youTubePlayer.getDuration() / 100, true);
+            youTubePlayer.seekTo(event.target.value * youTubePlayer.getDuration() / 100, true);
         }
         this.buttonDisabled()
     }
     
     youTubePlayerVolumeChange(event) {
-
         this.setState({valueVolume: event.target.value})
 
         if (this.youTubePlayerActive()) {
@@ -165,18 +155,16 @@ export class Player extends React.Component {
             let currentPercent = (current && duration
                                   ? current * 100 / duration
                                   : 0);
-
                 this.setState({
                     valueTime: currentPercent,
                 })
-
-            console.log(`current${current}, duration${duration}, currentPercent${currentPercent}, this.state.valueTime${this.state.valueTime}`)
+            this.duration = `${~~((duration/10)/60)}${~~((duration)/60)}:${~~((duration%60)/10)}${~~((duration/60)*100)%10}`;
+            this.currentTime =  `${~~((current/10)/60)}${~~((current)/60)}:${~~((current%60)/10)}${~~((current/60)*100)%10}`;
+            // console.log(`current${current}, duration${duration}, currentPercent${currentPercent}, this.state.valueTime${this.state.valueTime}`)
         }
-
     }
     
     render() {
-
         return (
             <div className="wrapper-player">
                     <div className="player">
@@ -212,9 +200,7 @@ export class Player extends React.Component {
                                         <path d="M16 0.32c-8.64 0-15.68 7.040-15.68 15.68s7.040 15.68 15.68 15.68 15.68-7.040 15.68-15.68-7.040-15.68-15.68-15.68zM16 29.216c-7.296 0-13.216-5.92-13.216-13.216s5.92-13.216 13.216-13.216 13.216 5.92 13.216 13.216-5.92 13.216-13.216 13.216z"></path>
                                         <path d="M16 32c-8.832 0-16-7.168-16-16s7.168-16 16-16 16 7.168 16 16-7.168 16-16 16zM16 0.672c-8.448 0-15.328 6.88-15.328 15.328s6.88 15.328 15.328 15.328c8.448 0 15.328-6.88 15.328-15.328s-6.88-15.328-15.328-15.328zM16 29.568c-7.488 0-13.568-6.080-13.568-13.568s6.080-13.568 13.568-13.568c7.488 0 13.568 6.080 13.568 13.568s-6.080 13.568-13.568 13.568zM16 3.104c-7.104 0-12.896 5.792-12.896 12.896s5.792 12.896 12.896 12.896c7.104 0 12.896-5.792 12.896-12.896s-5.792-12.896-12.896-12.896z"></path>
                                     </svg>
-                                  
                                 </div>
-                             
                             </div>
                         </div>
                         <div className="progress">
@@ -223,13 +209,10 @@ export class Player extends React.Component {
                                     <div className="album-info__name">{this.props.artist}</div>
                                     <div className="album-info__track">{this.props.title}</div>
                                 </div>
-                                <div className="progress__duration">{this.state.duration}</div>
+                                <div className="progress__duration">{this.duration}</div>
                             </div>
                         
                             <div className="progress__time"><div>
-                        
-                            
-                            <div>
                                 <input
                                     id="YouTube-player-progress"
                                     type="range"
@@ -237,10 +220,8 @@ export class Player extends React.Component {
                                     min="0"
                                     max="100"
                                     step="any"
-                                    onChange={this.youTubePlayerCurrentTimeChange}
-                                   
-                                    />
-                            </div>
+                                    onChange={this.youTubePlayerCurrentTimeChange}/>
+                                <div className="current-time">{this.currentTime}</div>
                         </div>
                         </div>
                     </div>
