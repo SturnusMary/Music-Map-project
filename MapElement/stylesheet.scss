@@ -2,26 +2,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    // background-image: url('../img/back2.svg');
-    // background-repeat: no-repeat;
-    // background-position: 50% 0%;
-    // background-size: 64%;
     width: 100%;
     height: 100vh;
-    padding: 10% 20%;
+    padding: 5% 100px;
 }
 
 #map {
-    // transform: scale(0.85);
-    // -webkit-transform: scale(0.85);
-    // -moz-transform: scale(0.85);
-    // -ms-transform: scale(0.85);
-    // -o-transform: scale(0.85);
-    // height: 47vw;
-    fill: url(#gradient-horizontal)  gray;
     width: 100%;
-
-    // margin-top: 2vw;
 }
 #gradient-horizontal {
     --color-stop-1: #a770ef;
