@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import db from '../db.json';
 import {Player} from './player';
 
-
 export class SidebarWrapper extends React.Component {
    constructor(props){
       super(props);
@@ -29,7 +28,6 @@ export class SidebarWrapper extends React.Component {
          for(let k in arr[i]) {
             if(time == arr[i][k]) {
                objOfOneSong = arr[i];
-               console.log(arr[i])
                return objOfOneSong;
             }
          }
@@ -51,13 +49,16 @@ export class SidebarWrapper extends React.Component {
       const songs = this.filterByPlace(this.props.place || null);
       const  finalSong = this.filterByTime(this.props.time || null, songs);
       const  songUrl = this.getData(finalSong);
-      // console.log(this.props.place, this.props.time, songUrl)
         return(
             <div id="sidebar-wrapper" className="sidebar-wrapper">
                <div className="sidebar-content">
-                  <Player {...finalSong} src={songUrl} />
+                  <Player {...finalSong} src={songUrl ? songUrl : null} />
                </div>
             </div>
         )
     }
+}
+SidebarWrapper.propType = {
+   place: PropTypes.string,
+   time: PropTypes.string,
 }

@@ -2,11 +2,9 @@ import React from 'react';
 import s from './stylesheet.scss';
 import PropTypes from 'prop-types';
 import db from '../db.json';
-// import mojs from '@mojs/core'
+// import {mojs} from './mojs';
+
 let selectedTd;
-
-
-
 
 export class MapElement extends React.Component {
     constructor(props){
@@ -16,82 +14,6 @@ export class MapElement extends React.Component {
         }
         this.handleClickMap = this.handleClickMap.bind(this);
         this.highlight = this.highlight.bind(this);
-
-    }
-
-    componentDidMount(){
-     
-
-        // class Heart extends mojs.CustomShape {
-        //     getShape () {
-        //       return '<path d="M73.6170213,0 C64.4680851,0 56.5957447,5.53191489 51.7021277,13.8297872 C50.8510638,15.3191489 48.9361702,15.3191489 48.0851064,13.8297872 C43.4042553,5.53191489 35.3191489,0 26.1702128,0 C11.9148936,0 0,14.0425532 0,31.2765957 C0,48.0851064 14.893617,77.8723404 47.6595745,99.3617021 C49.1489362,100.212766 50.8510638,100.212766 52.1276596,99.3617021 C83.8297872,78.5106383 99.787234,48.2978723 99.787234,31.2765957 C100,14.0425532 88.0851064,0 73.6170213,0 L73.6170213,0 Z"></path>';
-        //     }
-        //   }
-        //   mojs.addShape( 'heart', Heart );
-          
-        //   const CIRCLE_RADIUS = 20;
-        //   const RADIUS = 32;
-        //   const circle = new mojs.Shape({
-        //     left: 0, top: 0,
-        //     stroke:   '#FF9C00',
-        //     strokeWidth: { [2*CIRCLE_RADIUS] : 0 },
-        //     fill:       'none',
-        //     scale:      { 0: 1 },
-        //     radius:     CIRCLE_RADIUS,
-        //     duration:   400,
-        //     easing:     'cubic.out'
-        //   });
-          
-        //   const burst = new mojs.Burst({
-        //     left: 0, top: 0,
-        //     radius:   { 4: RADIUS },
-        //     angle:    45,
-        //     count:    14,
-        //     timeline: { delay: 300 },
-        //     children: {
-        //       radius:       2.5,
-        //       fill:         '#FD7932',
-        //       scale:        { 1: 0, easing: 'quad.in' },
-        //       pathScale:    [ .8, null ],
-        //       degreeShift:  [ 13, null ],
-        //       duration:     [ 500, 700 ],
-        //       easing:       'quint.out'
-        //     }
-        //   });
-          
-        //   const heart = new mojs.Shape({
-        //     left: 0, top: 2,
-        //     shape:    'heart',
-        //     fill:     '#E5214A',
-        //     scale:    { 0 : 1 },
-        //     easing:   'elastic.out',
-        //     duration: 1600,
-        //     delay:    300,
-        //     radius:   11
-        //   });
-          
-        //   document.addEventListener( 'click', function (e) {
-        //       console.log(event.target.parentNode.id)
-        
-        //     if(event.toElement.nodeName == 'path' && event.target.parentNode.id == 'map'){
-        //         const coords = { x: e.pageX, y: e.pageY };
-        //         burst
-        //           .tune(coords)
-        //           .replay();
-                
-        //         circle
-        //           .tune( coords )
-        //           .replay();
-                
-        //         heart
-        //           .tune( coords )
-        //           .replay();              
-        //     }
-        // });
-            
-        
-
-
 
     }
 
@@ -124,6 +46,7 @@ export class MapElement extends React.Component {
     render() {
         return (
             <div className="wrapper-map">
+            <h1 id="title">let the music play</h1>
                 <svg
                     onClick={this.handleClickMap}
                     id="map"
@@ -132,43 +55,6 @@ export class MapElement extends React.Component {
                     x="0px"
                     y="0px"
                     viewBox="0 0 1009.7 666">
-                    {/* <style type="text/css">
-                        fill: url(#gradient-horizontal)
-                    </style>
-                    <defs> */}
-                    {/* <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="513.8795" y1="695.7123" x2="513.8795" y2="160.7114" gradientTransform="matrix(1 0 0 -1 0 794.95)">
-                <stop offset="0" style="stop-color:#D96B6C" />
-                <stop offset="1" style="stop-color:#E35980" />
-            </linearGradient> */}
-                    {/* <linearGradient id="gradient-horizontal">
-                        <stop offset="0%" stop-color="var(--color-stop-1)" />
-                        <stop offset="50%" stop-color="var(--color-stop-2)" />
-                        <stop offset="100%" stop-color="var(--color-stop-3)" />
-                    </linearGradient>
-                    <linearGradient id="gradient-vertical" x2="0" y2="1">
-                        <stop offset="0%" stop-color="var(--color-stop-1)" />
-                        <stop offset="50%" stop-color="var(--color-stop-2)" />
-                        <stop offset="100%" stop-color="var(--color-stop-3)" />
-                    </linearGradient>
-                    </defs> */}
-                    <filter
-                        id="static_blur"
-                        x="-50%"
-                        y="-50%"
-                        width="200%"
-                        height="200%"
-                        filterUnits="userSpaceOnUse">
-                        <feGaussianBlur in="SourceGraphic" stdDeviation="1"/>
-                    </filter>
-                    <filter
-                        id="neon_glow"
-                        x="-50%"
-                        y="-50%"
-                        width="200%"
-                        height="200%"
-                        filterUnits="userSpaceOnUse">
-                        <feGaussianBlur in="SourceGraphic" stdDeviation="10"/>
-                    </filter>
                     <path
                         d="m 479.68275,331.6274 -0.077,0.025 -0.258,0.155 -0.147,0.054 -0.134,0.027 -0.105,-0.011 -0.058,-0.091 0.006,-0.139 -0.024,-0.124 -0.02,-0.067 0.038,-0.181 0.086,-0.097 0.119,-0.08 0.188,0.029 0.398,0.116 0.083,0.109 10e-4,0.072 -0.073,0.119 z"
                         title="Andorra"
@@ -1198,4 +1084,7 @@ export class MapElement extends React.Component {
             </div>
         )
     }
+}
+MapElement.propType = {
+    onPlaceChange: PropTypes.func,
 }

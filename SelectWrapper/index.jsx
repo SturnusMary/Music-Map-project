@@ -1,12 +1,10 @@
 import React from 'react';
 import s from './stylesheet.scss';
 import PropTypes from 'prop-types';
-import db from '../db.json';
-
+import {Item} from './item';
 import ReactCSSTransitionGroup from  'react-addons-css-transition-group';
 
 export class SelectWrapper extends React.Component {
-    
     constructor(props) {
         super(props)
         this.state = {
@@ -116,26 +114,12 @@ export class SelectWrapper extends React.Component {
     }
 }
 
-class Item extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            level: this.props.level,
-        }
-    }
-    
-    render() {
-        const className = 'item level' + this.props.level;
-
-        return(
-            <div id={this.props.id} className={this.props.level == 0 ? `${className} example` :className}>
-                {this.props.element}
-            </div>
-        )
-    }
+SelectWrapper.propType = {
+    items: PropTypes.array,
+    active: PropTypes.number,
+    decade: PropTypes.number,
+    onTimeChange: PropTypes.func,
 }
-
-
 
 
 

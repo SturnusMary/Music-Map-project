@@ -17,9 +17,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-   
-    font-family: 'Allerta Stencil', sans-serif;
-    // font-family: KairosSans;
+    font-family: KairosSans;
 }
 .inner-select-wrapper {
     display: flex;
@@ -37,25 +35,27 @@ span {
 }
 
 .item {
-    // font-family: "Bitter", serif;
-    // color: #71829e;
-    // font-weight: 700;
     text-align: center;
-    color: rgb(0, 0, 0);
-    transition: height 1s, width 1s, left 1s, margin-top 1s, font-size 0.3s, margin-bottom 1s, line-height 0.3s, background-color 1s;
-    border-radius: 4px;
+    color: rgb(255, 255, 255);
+    transition: height 0.3s, width 0.5s, left 1s, margin-top 0.3s, font-size 0.3s, margin-bottom 0.3s, line-height 0.3s, background-color 1s;
+    border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
+   
 }
 
 $level2-height: 30px;
 $level2-width: 50px;
 $level2-font: 12px;
 
-$level1-height: 45px;
+$level1-height: 40px;
 $level1-width: 70px;
 $level1-font: 16px;
+
+$level0-fontW: 700;
+$level1-fontW: 500;
+$level2-fontW: 200;
 
 $level0-height: 50px;
 $level0-width: 90px;
@@ -64,14 +64,16 @@ $level0-font: 20px;
 .level-2 {
     height: $level2-height;
     width: $level2-width;
-    background-color:  rgba(255, 255, 255, 0.192);
+    font-weight: $level2-fontW;
+    background-color:   #431c5d31;
     font-size: $level2-font;
 }
 
 .level-1 {
     height: $level1-height;
     width: $level1-width;
-    background-color: rgba(255, 255, 255, 0.514);
+    font-weight: $level1-fontW;
+    background-color: #431c5d7e;
     margin-bottom: 10px;
     font-size: $level1-font;
 }
@@ -80,7 +82,8 @@ $level0-font: 20px;
     height: $level0-height;
     width: $level0-width;
     font-size: $level0-font;
-    background-color: rgba(255, 255, 255, 0.788);
+    font-weight: $level0-fontW;
+    background-color: #431c5d;
     margin-top: 5px;
     margin-bottom: 5px;
 }
@@ -88,7 +91,8 @@ $level0-font: 20px;
 .level1 {
     height: $level1-height;
     width: $level1-width;
-    background-color:  rgba(255, 255, 255, 0.514);
+    font-weight: $level1-fontW;
+    background-color:  #431c5d7e;
     margin-top: 10px;
     font-size: $level1-font;
 }
@@ -97,8 +101,9 @@ $level0-font: 20px;
     height: $level2-height;
     width: $level2-width;
     line-height: $level2-height;
-    background-color: rgba(255, 255, 255, 0.192);
+    background-color: #431c5d31;
     font-size: $level2-font;
+    font-weight: $level2-fontW;
 }
 
 .left-enter {
@@ -115,13 +120,13 @@ $level0-font: 20px;
     opacity: 1;
     height: $level2-height;
     width: $level2-width;
-    transition: left 1s, opacity 1s, height 1s, width 1s, margin-top 1s;
+    transition: left 1s, opacity 0.2s, height 0.3s, width 0.5s, margin-top 0.3s;
 }
 .right-enter.right-enter-active {
     opacity: 1;
     height: $level2-height;
     width: $level2-width;
-    transition: left 1s, opacity 1s, height 1s, width 1s, margin-bottom 1s;
+    transition: left 1s, opacity 0.2s, height 0.3s, width 0.5s, margin-bottom 0.3s;
 }
 
 .left-leave {
@@ -138,14 +143,14 @@ $level0-font: 20px;
     opacity: 0;
     height: $level2-height - 30;
     width: $level2-width - 20;
-    transition: left 1s, opacity 1s, height 1s, width 1s, margin-top 1s;
+    transition: left 1s, opacity 0.2s, height 0.3s, width 0.5s, margin-top 0.3s;
 }
 
 .right-leave.right-leave-active {
     opacity: 0;
     height: $level2-height - 30;
     width: $level2-width - 20;
-    transition: left 1s, opacity 1s, height 1s, width 1s, margin-bottom 1s,;
+    transition: left 1s, opacity 0.2s, height 0.3s, width 0.5s, margin-bottom 0.3s,;
 }
 
 ///////////////////////////////////////////////////////////////////////TEXT ANIMATION
@@ -156,32 +161,29 @@ text-align: center;
 
 .example {
     position: relative;
-    // font-family: KairosSans;
     font-size: 25px;
     animation-direction: alternate;
     animation-timing-function: ease-in-out;
-    // animation: fontVariations 8s infinite;
-    // -webkit-animation: fontVariations 8s infinite;
+    animation: fontVariations 4s infinite;
 }
 
 @keyframes fontVariations {
-
-25% {
-    color: rgb(94, 205, 50);
-}
-50% {
-    color: #f79533;
-    font-variation-settings: "ital" 0, "wght" 900, "wdth" 110;
-}
-75% {
-    color: rgb(50, 91, 205);
+    0% {
+        font-variation-settings: "ital" 0, "wght" 600, "wdth" 90;
     }
-100% {
-    color: rgb(200, 50, 205);
+    25% {
+        font-variation-settings: "ital" 0, "wght" 700, "wdth" 100;
+    }
+    50% {
+        font-variation-settings: "ital" 0, "wght" 800, "wdth" 110;
+    }
+    75% {
+        font-variation-settings: "ital" 0, "wght" 700, "wdth" 100;
+    }
+    100% {
+        font-variation-settings: "ital" 0, "wght" 600, "wdth" 90;
+    }
 }
-}
-
-
 ///////////////////////////////////////////////////////////////////////ARROW ANIMATION
 $ease: cubic-bezier(.2,1,.3,1);
 #carousel {
@@ -190,12 +192,12 @@ $ease: cubic-bezier(.2,1,.3,1);
         overflow: visible;
         polygon, path {
             transition: all 0.5s $ease;
-            fill: white;
+            fill: #431c5d;
             stroke: none;
         }
         &:hover polygon, &:hover path {
             transition: all 1s $ease;
-            fill: #f79533;    
+            fill: #e05915;   
         }
         &:hover .arrow {
             animation: arrow-anim 2.5s $ease infinite;

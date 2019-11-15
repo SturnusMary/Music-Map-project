@@ -1,7 +1,6 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 let youTubePlayer;
-
 export class Player extends React.Component {
     constructor(props) {
         super(props);
@@ -25,8 +24,7 @@ export class Player extends React.Component {
                     .parentNode
                     .insertBefore(tag, firstScriptTag);
                 window.onYouTubeIframeAPIReady = () => resolve(window.YT);
-            })
-            
+            })   
         }
         
         youTubePlayer.then((YT) => {
@@ -91,13 +89,13 @@ export class Player extends React.Component {
     
     onStateChange(event) {
         if(event.data == '1'){
-            status = 'play'
+            this.status = 'play'
         } else if (event.data == '2'){
-            status = 'pause'
+            this.status = 'pause'
         }else if (event.data == '0'){
-            status = 'finished'
+            this.status = 'finished'
         }
-        if (status === 'play') {
+        if ( this.status === 'play') {
             this.timerId = setInterval(this.youTubePlayerDisplayInfos, 500);
             
         } else {
@@ -160,7 +158,7 @@ export class Player extends React.Component {
                 })
             this.duration = `${~~((duration/10)/60)}${~~((duration)/60)}:${~~((duration%60)/10)}${~~((duration/60)*100)%10}`;
             this.currentTime =  `${~~((current/10)/60)}${~~((current)/60)}:${~~((current%60)/10)}${~~((current/60)*100)%10}`;
-            // console.log(`current${current}, duration${duration}, currentPercent${currentPercent}, this.state.valueTime${this.state.valueTime}`)
+            console.log(`current${current}, duration${duration}, currentPercent${currentPercent}, this.state.valueTime${this.state.valueTime}`)
         }
     }
     
@@ -174,6 +172,9 @@ export class Player extends React.Component {
                                 <transition-group classNameName="transitionName">
                                     <div className="player-cover__item" style={{ backgroundImage: `url(${this.props.imageUrl})`}}></div>
                                 </transition-group>
+                                <div className='container-animation'>
+                                    <img className={this.status != 'play' ? 'null' : 'vinyl'} src="http://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Vynil_vinil_92837841.png/603px-Vynil_vinil_92837841.png" />
+                                </div>
                             </div>
                             <div className="player-controls">
                                 <div >
@@ -221,7 +222,7 @@ export class Player extends React.Component {
                                     max="100"
                                     step="any"
                                     onChange={this.youTubePlayerCurrentTimeChange}/>
-                                <div className="current-time">{this.currentTime}</div>
+                            <div className="current-time">{this.currentTime}</div>
                         </div>
                         </div>
                     </div>
@@ -232,3 +233,9 @@ export class Player extends React.Component {
     }
 }
 
+Player.propType = {
+    src: PropTypes.string,
+    imageUrl: PropTypes.string,
+    artist: PropTypes.string,
+    title: PropTypes.string,
+}
