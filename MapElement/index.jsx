@@ -17,6 +17,25 @@ export class MapElement extends React.Component {
 
     }
 
+    handleOnmouseover(event){
+        const target = event.target.closest('path');
+        if (!target) return;
+        if(!map.contains(target)) return;
+
+        const targetPlace = event.target.getAttribute('title');
+        const nameCountry = document.createElement('div');
+        nameCountry.textContent = targetPlace;
+        nameCountry.id = 'selectedCountry';
+        wrapperMap.append(nameCountry);
+    }
+
+    handleOnmouseout(event){
+        const target = event.target.closest('path');
+        if (!target) return;
+        if(!map.contains(target)) return;
+        selectedCountry.remove();
+    }
+
     handleClickMap(){
         const target = event.target.closest('path');
         if (!target) return;
@@ -29,26 +48,39 @@ export class MapElement extends React.Component {
                 targetPlace: `${targetPlace}`,
             })
             this.props.onPlaceChange(targetPlace);
-            // console.log(targetPlace)
         }
-
-        // console.log(event.target.id, db);
     }
 
     highlight(path){
-        if (selectedTd) { // убрать существующую подсветку, если есть
+        if (selectedTd) { 
             selectedTd.classList.remove('highlight');
         }
         selectedTd = path;
-        selectedTd.classList.add('highlight'); // подсветить новый path
+        selectedTd.classList.add('highlight');
     }
-    
+
+    componentDidUpdate(){
+        let PopUpBlur = document.getElementById('map');
+       
+        if(!this.props.finalSong &&  this.props.stateForPopUp ) {
+            PopUpBlur.classList.add('blur-in');
+            setTimeout(this.displayNone, 3000);
+        }
+    }
+
+    displayNone(){
+        let PopUpBlur = document.getElementById('map');
+        PopUpBlur.classList.remove('blur-in');
+    }
+
     render() {
         return (
-            <div className="wrapper-map">
+            <div className="wrapper-map" id = "wrapperMap">
             <h1 id="title">let the music play</h1>
-                <svg
+                <svg className={!this.props.finalSong && this.props.stateForPopUp ? 'blur-in' : ''}
                     onClick={this.handleClickMap}
+                    onMouseOver={this.handleOnmouseover}
+                    onMouseOut={this.handleOnmouseout}
                     id="map"
                     version="1.1"
                     xmlns="http://www.w3.org/2000/svg"

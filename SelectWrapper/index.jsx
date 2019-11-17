@@ -17,6 +17,7 @@ export class SelectWrapper extends React.Component {
         this.bottomClick = this.moveBottom.bind(this);
         this.topClick = this.moveTop.bind(this);
     }
+    
     generateItems() {
         let items = []
         let level;

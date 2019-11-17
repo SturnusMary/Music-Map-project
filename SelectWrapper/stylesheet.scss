@@ -1,10 +1,8 @@
 @font-face {
-    font-family: KairosSans;
-    font-display: swap;
-    src: url(https://yoksel.github.io/variable-fonts/assets/fonts/KairosSans/KairosSans_Variable.ttf) format("truetype");
+	src: url('https://res.cloudinary.com/dr6lvwubh/raw/upload/v1529908256/CompressaPRO-GX.woff2');
+	font-family:'Compressa VF';
+	font-style: normal;
 }
-//font-family: 'Allerta Stencil', sans-serif;
-@import url('https://fonts.googleapis.com/css?family=Bitter:400,700&display=swap');
 
 #carousel {
     position: fixed;
@@ -17,7 +15,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-family: KairosSans;
+    font-family: Compressa VF;
 }
 .inner-select-wrapper {
     display: flex;
@@ -65,7 +63,7 @@ $level0-font: 20px;
     height: $level2-height;
     width: $level2-width;
     font-weight: $level2-fontW;
-    background-color:   #431c5d31;
+    background-color:#431c5d31;
     font-size: $level2-font;
 }
 
@@ -156,7 +154,7 @@ $level0-font: 20px;
 ///////////////////////////////////////////////////////////////////////TEXT ANIMATION
 
 .wrapper {
-text-align: center;
+    text-align: center;
 }
 
 .example {
@@ -184,8 +182,11 @@ text-align: center;
         font-variation-settings: "ital" 0, "wght" 600, "wdth" 90;
     }
 }
+
 ///////////////////////////////////////////////////////////////////////ARROW ANIMATION
+
 $ease: cubic-bezier(.2,1,.3,1);
+
 #carousel {
     .arrowMain {
         height: auto;
@@ -246,6 +247,7 @@ $ease: cubic-bezier(.2,1,.3,1);
     top: 0;
     transform: rotate(270deg);
 }
+
 .arrow-bottom {
     bottom: 0;
     transform: rotate(-90deg);
