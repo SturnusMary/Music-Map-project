@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import s from './stylesheet.scss';
+
 let youTubePlayer;
 export class Player extends React.Component {
     constructor(props) {

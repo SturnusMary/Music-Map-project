@@ -71,15 +71,14 @@ class App extends React.Component {
         console.log(this.state.place)
         return(
             <React.Fragment>
-                <Loader isLoading={this.state.isLoading} />
-                <PopUp finalSong={finalSong} stateForPopUp={this.state.place}> </PopUp>
+                {/* <Loader isLoading={this.state.isLoading} /> */}
+                {/* <PopUp finalSong={finalSong} stateForPopUp={this.state.place}> </PopUp> */}
                 <main>
-                    <aside>
+                    
                         <SidebarWrapper 
                             finalSong={finalSong}>
                         </SidebarWrapper>
-                    </aside>
-                    <button id="showSideBar" onClick={this.onClickButtonSideBarShow} />
+
                     <SelectWrapper 
                         items={this.items}
                         active={0}
