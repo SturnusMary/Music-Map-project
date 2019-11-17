@@ -8,38 +8,31 @@
 }
 
 body {
-    // background: white;
     overflow: hidden;
     background-color:#e3e0cf;
-    // background-image: url('https://image.freepik.com/free-vector/abstract-hand-painted-wedding-invitation-template_23-2148269533.jpg');
-    // background-image: url('./img/back.svg');
     background-image: url('./img/3049868.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
 }
-* {
-	margin: 0;
-	padding: 0;
-}
 
-html,
-body {
-	height: 100%;
-}
 .container {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	min-height: 100%;
 }
+
 header{
     display: flex;
 }
+
 main {
     position: relative;
     display: flex;
 	flex: 1 0 auto;
 }
+
 footer {
 	flex: 0 0 auto;
 }
@@ -60,20 +53,6 @@ footer {
 	font-family:'Compressa VF';
 	font-style: normal;
 }
-// html {
-// 	height:100%;
-// }
-// body {
-
-// 	padding: 0;
-// 	margin: 0;
-// 	overflow: hidden;
-// 	background-color: #211D26;
-// 	display: flex;
-// 	justify-content: center;
-// 	height: 100%;
-// 	align-items: center;
-// }
 
 h1 {
     position: absolute;
@@ -113,4 +92,223 @@ h1.stroke span:after {
 	line-height: inherit;
 	color: transparent;
 	z-index: -1;
+}
+
+
+$second-color:  #431c5d;
+$third-color: #431c5d;
+
+$fourth-color:  #37015c;
+
+///////////////////////////////////////MODAL
+
+.pop-up-explanation {
+width: 100%;
+height: 100vh;
+	top: 0%;
+    left: 0%;
+	z-index: 100;
+	position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.blur-in {
+    -webkit-animation: blur 2s forwards;
+    -moz-animation: blur 2s forwards;
+    -o-animation: blur 2s forwards;
+    animation: blur 2s forwards;
+}
+
+.blur-out {
+    -webkit-animation: blur-out 2s forwards;
+    -moz-animation: blur-out 2s forwards;
+    -o-animation: blur-out 2s forwards;
+    animation: blur-out 2s forwards;
+}
+
+@-webkit-keyframes blur {
+    0% {
+        -webkit-filter: blur(0px);
+        -moz-filter: blur(0px);
+        -o-filter: blur(0px);
+        -ms-filter: blur(0px);
+        filter: blur(0px);
+    }
+
+    100% {
+        -webkit-filter: blur(4px);
+        -moz-filter: blur(4px);
+        -o-filter: blur(4px);
+        -ms-filter: blur(4px);
+        filter: blur(4px);
+    }
+}
+
+@-moz-keyframes blur {
+    0% {
+        -webkit-filter: blur(0px);
+        -moz-filter: blur(0px);
+        -o-filter: blur(0px);
+        -ms-filter: blur(0px);
+        filter: blur(0px);
+    }
+
+    100% {
+        -webkit-filter: blur(4px);
+        -moz-filter: blur(4px);
+        -o-filter: blur(4px);
+        -ms-filter: blur(4px);
+        filter: blur(4px);
+    }
+}
+
+@-o-keyframes blur {
+    0% {
+        -webkit-filter: blur(0px);
+        -moz-filter: blur(0px);
+        -o-filter: blur(0px);
+        -ms-filter: blur(0px);
+        filter: blur(0px);
+    }
+
+    100% {
+        -webkit-filter: blur(4px);
+        -moz-filter: blur(4px);
+        -o-filter: blur(4px);
+        -ms-filter: blur(4px);
+        filter: blur(4px);
+    }
+}
+
+@keyframes blur {
+    0% {
+        -webkit-filter: blur(0px);
+        -moz-filter: blur(0px);
+        -o-filter: blur(0px);
+        -ms-filter: blur(0px);
+        filter: blur(0px);
+    }
+
+    100% {
+        -webkit-filter: blur(4px);
+        -moz-filter: blur(4px);
+        -o-filter: blur(4px);
+        -ms-filter: blur(4px);
+        filter: blur(4px);
+    }
+}
+
+@-webkit-keyframes blur-out {
+    0% {
+        -webkit-filter: blur(4px);
+        -moz-filter: blur(4px);
+        -o-filter: blur(4px);
+        -ms-filter: blur(4px);
+        filter: blur(4px);
+    }
+
+    100% {
+        -webkit-filter: blur(0px);
+        -moz-filter: blur(0px);
+        -o-filter: blur(0px);
+        -ms-filter: blur(0px);
+        filter: blur(0px);
+    }
+}
+
+@-moz-keyframes blur-out {
+    0% {
+        -webkit-filter: blur(4px);
+        -moz-filter: blur(4px);
+        -o-filter: blur(4px);
+        -ms-filter: blur(4px);
+        filter: blur(4px);
+    }
+
+    100% {
+        -webkit-filter: blur(0px);
+        -moz-filter: blur(0px);
+        -o-filter: blur(0px);
+        -ms-filter: blur(0px);
+        filter: blur(0px);
+    }
+}
+
+@-o-keyframes blur-out {
+    0% {
+        -webkit-filter: blur(4px);
+        -moz-filter: blur(4px);
+        -o-filter: blur(4px);
+        -ms-filter: blur(4px);
+        filter: blur(4px);
+    }
+
+    100% {
+        -webkit-filter: blur(0px);
+        -moz-filter: blur(0px);
+        -o-filter: blur(0px);
+        -ms-filter: blur(0px);
+        filter: blur(0px);
+    }
+}
+
+@keyframes blur-out {
+    0% {
+        -webkit-filter: blur(4px);
+        -moz-filter: blur(4px);
+        -o-filter: blur(4px);
+        -ms-filter: blur(4px);
+        filter: blur(4px);
+    }
+
+    100% {
+        -webkit-filter: blur(0px);
+        -moz-filter: blur(0px);
+        -o-filter: blur(0px);
+        -ms-filter: blur(0px);
+        filter: blur(0px);
+    }
+}
+
+
+
+
+@import url('https://fonts.googleapis.com/css?family=Rajdhani:300&display=swap');
+
+$blur: 20px;
+$shadow-opacity: 0.30;
+
+$base: #C8C8A9;
+$primary:#cdd422;
+
+#modal {
+    fill: $primary;
+    margin: 50px auto;
+    width: 12%;
+    display: flex;
+
+}
+
+.logo {
+  fill: $primary;
+}
+
+.clip {
+  animation: slide 3s infinite;
+  -webkit-animation: slide 3s infinite;
+}
+
+@keyframes slide {
+  from {
+    transform: translateY(-135px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  to {
+    transform: translateY(-135px);
+  }
 }

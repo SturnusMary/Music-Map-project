@@ -169,7 +169,7 @@ export class Player extends React.Component {
                         <div id="YouTube-player" style={{display: 'none'}}></div>
                         <div className="player__top">
                             <div className="player-cover">
-                                <transition-group classNameName="transitionName">
+                                <transition-group className="transitionName">
                                     <div className="player-cover__item" style={{ backgroundImage: `url(${this.props.imageUrl})`}}></div>
                                 </transition-group>
                                 <div className='container-animation'>

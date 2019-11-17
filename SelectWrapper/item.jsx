@@ -11,7 +11,6 @@ export class Item extends React.Component {
     
     render() {
         const className = 'item level' + this.props.level;
-
         return(
             <div id={this.props.id} className={this.props.level == 0 ? `${className} example` :className}>
                 {this.props.element}
