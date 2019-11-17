@@ -12,12 +12,12 @@ export function titleAnimation () {
         return Math.sqrt(Math.pow(dx, 2), Math.pow(dy, 2));
     }
     
-    window.addEventListener("mousemove", function(e) {
+    map.addEventListener("mousemove", function(e) {
         cursor.x = e.clientX;
         cursor.y = e.clientY;
     });
     
-    window.addEventListener("touchmove", function(e) {
+    map.addEventListener("touchmove", function(e) {
         let t = e.touches[0];
         cursor.x = t.clientX;
         cursor.y = t.clientY;

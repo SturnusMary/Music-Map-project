@@ -1,4 +1,21 @@
 @import url('https://fonts.googleapis.com/css?family=Allerta+Stencil&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Rajdhani:300&display=swap');
+@font-face {
+	src: url('https://res.cloudinary.com/dr6lvwubh/raw/upload/v1529908256/CompressaPRO-GX.woff2');
+	font-family:'Compressa VF';
+	font-style: normal;
+}
+
+// variables
+$blur: 20px;
+$shadow-opacity: 0.30;
+$base: #C8C8A9;
+$primary:#cdd422;
+$second-color:  #431c5d;
+$third-color: #431c5d;
+$fourth-color:  #37015c;
+
+
 *, :after, :before {
     box-sizing: border-box;
     margin: 0;
@@ -43,15 +60,9 @@ footer {
     background:#000;
     display: flex;
 }
+
 .motto {
     position: absolute;
-}
-
-
-@font-face {
-	src: url('https://res.cloudinary.com/dr6lvwubh/raw/upload/v1529908256/CompressaPRO-GX.woff2');
-	font-family:'Compressa VF';
-	font-style: normal;
 }
 
 h1 {
@@ -68,39 +79,37 @@ h1 {
 	font-weight: 900;
 	text-align: center;
     width: 500px;
-}
-h1 span {
-  font-size: 40px;
-	transform: translateY(-10px);
-	user-select: none;
-}
-h1.flex {
-	display: flex;
-	justify-content: space-between;
-}
-h1.stroke span {
-	position: relative;
-	color: #211D26;
-	line-height: inherit;
-}
-h1.stroke span:after {
-	content: attr(data-char);
-	-webkit-text-stroke-width: 3px;
-	-webkit-text-stroke-color: #FE6730;
-	position: absolute;
-	left: 0;
-	line-height: inherit;
-	color: transparent;
-	z-index: -1;
-}
 
+    & span {
+        font-size: 40px;
+          transform: translateY(-10px);
+          user-select: none;
+      }
 
-$second-color:  #431c5d;
-$third-color: #431c5d;
+      &.flex {
+        display: flex;
+        justify-content: space-between;
+    }
 
-$fourth-color:  #37015c;
+    &.stroke span{
 
-///////////////////////////////////////MODAL
+        position: relative;
+        color: #211D26;
+        line-height: inherit;
+
+        &:after {
+            content: attr(data-char);
+            -webkit-text-stroke-width: 3px;
+            -webkit-text-stroke-color: #FE6730;
+            position: absolute;
+            left: 0;
+            line-height: inherit;
+            color: transparent;
+            z-index: -1;
+        }
+    }
+    
+}
 
 .pop-up-explanation {
 width: 100%;
@@ -115,18 +124,35 @@ height: 100vh;
     
 }
 
-.blur-in {
+.blur{
+    &-in {
     -webkit-animation: blur 2s forwards;
     -moz-animation: blur 2s forwards;
     -o-animation: blur 2s forwards;
     animation: blur 2s forwards;
 }
-
-.blur-out {
+&-out {
     -webkit-animation: blur-out 2s forwards;
     -moz-animation: blur-out 2s forwards;
     -o-animation: blur-out 2s forwards;
     animation: blur-out 2s forwards;
+}
+}
+
+#modal {
+    fill: $primary;
+    margin: 50px auto;
+    width: 12%;
+    display: flex;
+}
+
+.logo {
+  fill: $primary;
+}
+
+.clip {
+  animation: slide 3s infinite;
+  -webkit-animation: slide 3s infinite;
 }
 
 @-webkit-keyframes blur {
@@ -273,42 +299,17 @@ height: 100vh;
     }
 }
 
-
-
-
-@import url('https://fonts.googleapis.com/css?family=Rajdhani:300&display=swap');
-
-$blur: 20px;
-$shadow-opacity: 0.30;
-
-$base: #C8C8A9;
-$primary:#cdd422;
-
-#modal {
-    fill: $primary;
-    margin: 50px auto;
-    width: 12%;
-    display: flex;
-
-}
-
-.logo {
-  fill: $primary;
-}
-
-.clip {
-  animation: slide 3s infinite;
-  -webkit-animation: slide 3s infinite;
-}
-
 @keyframes slide {
-  from {
-    transform: translateY(-135px);
+    from {
+      transform: translateY(-135px);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+    to {
+      transform: translateY(-135px);
+    }
   }
-  50% {
-    transform: translateY(-5px);
-  }
-  to {
-    transform: translateY(-135px);
-  }
-}
+
+
+

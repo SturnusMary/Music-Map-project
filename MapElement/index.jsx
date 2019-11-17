@@ -2,6 +2,7 @@ import React from 'react';
 import s from './stylesheet.scss';
 import PropTypes from 'prop-types';
 import db from '../db.json';
+import { zoom } from "./zoom/index";
 // import {mojs} from './mojs';
 
 let selectedTd;
@@ -68,6 +69,10 @@ export class MapElement extends React.Component {
         }
     }
 
+    componentDidMount(){
+        this.zoom = zoom();
+    }
+
     displayNone(){
         let PopUpBlur = document.getElementById('map');
         PopUpBlur.classList.remove('blur-in');
@@ -77,6 +82,7 @@ export class MapElement extends React.Component {
         return (
             <div className="wrapper-map" id = "wrapperMap">
             <h1 id="title">let the music play</h1>
+
                 <svg className={!this.props.finalSong && this.props.stateForPopUp ? 'blur-in' : ''}
                     onClick={this.handleClickMap}
                     onMouseOver={this.handleOnmouseover}
@@ -1113,6 +1119,8 @@ export class MapElement extends React.Component {
                         id="ZW"/>
                 </svg>
 
+
+                <div className="attention" id="msg"></div>
             </div>
         )
     }
