@@ -1,35 +1,543 @@
+@import url('https://fonts.googleapis.com/css?family=Bitter:400,700&display=swap');
+$panelColor: #bccbde;
+@mixin flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .sidebar{
+  &-wrapper {
+    display: flex;
+    width: 50px;
+    height: 100%;
+    background: $panelColor;
+    transition: all .3s ease-in-out;
+    overflow: hidden;
 
-  &-wrapper{
-    position: absolute;
-left: 0;top: 0;
-z-index: 10;
-  }
+    &.active{
+      width: 320px;
+      transition: all .3s ease-in-out;
 
-  &#sidebar{
-    height: 100vh;
-    z-index: -1;
-
-    path{
-      z-index: 1;
+      & > .sidebar-content{
+        transition: all .3s ease-in-out;
+        opacity: 1;
+        visibility: visible;
+      }
     }
   }
-  
+
   &-content{
     transition: all .3s ease-in-out;
     opacity: 0;
     visibility: hidden;
-    position: absolute;
-      left: 0;
-      top: 0;
-      transition: all .4s ease-in-out;
-  
+  }
+}
+////////////////////////////////////////////////////////////////////////*BUTTON*/
+.player-controls {
 
-    &.active{
-      transition: all .4s ease-in-out;
-      display: flex;
-      opacity: 1;
-      visibility: visible;
+  &__item{
+
+    .icon {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      stroke-width: 0;
+      stroke: #acb8cc;
+      fill: #acb8cc;
     }
   }
+}
+
+.wrapper-player svg:hover {
+  fill: #cdd422;
+  transition: 1s ease-in-out;
+}
+
+.wrapper-player svg {
+  transition: 1s ease-in-out;
+}
+
+.wrapper-player path {
+  stroke: none;
+}
+
+.wrapper-player { 
+    background: white;
+    box-shadow: 0px 15px 35px -5px rgba(50, 88, 130, 0.32);
+    font-family: "Bitter", serif;
+    box-sizing: border-box;
+    width: 320px;
+    @include flex;
+    min-height: 100vh;
+    background-size: cover;
+
+  .titleDetail {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #71829e;
+    cursor: pointer;
+  }
+}
+
+.player {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  width: 100%;
+  border-radius: 15px;
+  padding: 17px;
+ 
+  &__top {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    z-index: 4;
+  }
+
+  &-cover {
+    width: 205px;
+    margin-bottom: 20px;
+    height: 205px;
+    flex-shrink: 0;
+    position: relative;
+    border-radius: 15px;
+    z-index: 1;
+
+    &__item {
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      width: 100%;
+      height: 100%;
+      border-radius: 15px;
+      left: 0;
+      top: 0;
+
+      &:before   {
+        content: "";
+        background: inherit;
+        width: 100%;
+        height: 100%;
+        box-shadow: 0px 10px 40px 0px #431c5d3a;
+        display: block;
+        z-index: 1;
+        position: absolute;
+        top: 30px;
+        transform: scale(0.9);
+        filter: blur(10px);
+        opacity: 0.9;
+        border-radius: 15px;
+      }
+
+      &:after {
+        content: "";
+        background: inherit;
+        width: 100%;
+        height: 100%;
+        box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
+        display: block;
+        z-index: 2;
+        position: absolute;
+        border-radius: 15px;
+      }
+    }
+
+    &__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0px 10px 40px 0px rgba(76, 70, 124, 0.5);
+      user-select: none;
+      pointer-events: none;
+    }
+  }
+
+  &-controls {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    max-width: 68px;
+
+    &-range   {
+      width: 80px;
+      transform: rotate(-90deg);
+     
+}
+    @media screen and (max-width: 576px), (max-height: 500px) {
+      flex-direction: row;
+      padding-left: 0;
+      width: 100%;
+      flex: unset;
+    }
+
+    &__item {
+      font-size: 30px;
+      padding: 5px;
+      margin-bottom: 10px;
+      color: #acb8cc;
+      cursor: pointer;
+      width: 50px;
+      height: 50px;
+      position: relative;
+      transition: all 0.3s ease-in-out;
+
+      &::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: #fff;
+        transform: scale(0.5);
+        opacity: 0;
+        box-shadow: 0px 5px 10px 0px rgba(76, 70, 124, 0.2);
+        transition: all 0.3s ease-in-out;
+        transition: all 0.4s cubic-bezier(0.35, 0.57, 0.13, 0.88);
+      }
+
+      .icon {
+        position: relative;
+        z-index: 2;
+      }
+
+      &.-xl { 
+        justify-self: flex-end;
+        align-self: flex-end;
+        padding: 0;
+
+          svg{
+            fill: #cdd422;
+          }
+        
+        margin-bottom: 0;
+        font-size: 65px;
+        filter: drop-shadow(0 11px 6px rgba(172, 184, 204, 0.45));
+        color: #fff;
+        width: auto;
+        height: auto;
+
+        &:before {
+          display: none;
+        }
+      }
+
+      &.-favorite {
+        &.active {
+          color: red;
+        }
+      }
+    }
+  }
+}
+
+.progress {
+  width: 100%;
+  margin-top: 0px;
+  user-select: none;
+
+  &__top {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  &__duration {
+    align-self: flex-end;
+    color: #71829e;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 17px;
+    opacity: 0.5;
+  }
+
+  &__time {
+    margin-top: 2px;
+    color: #71829e;
+    font-weight: 700;
+    font-size: 16px;
+    opacity: 0.7;
+
+    div:first-child{
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.progress__bar {
+  height: 6px;
+  width: 100%;
+  cursor: pointer;
+  background-color: #bccbde;
+  display: inline-block;
+  border-radius: 10px;
+}
+
+.progress__current {
+  height: inherit;
+  width: 0%;
+  background-color: #a3b3ce;
+  border-radius: 10px;
+}
+
+.album-info {
+  color: #71829e;
+  flex: 1;
+  padding-left: 8px;
+  user-select: none;
+  align-self: flex-start;
+ 
+  &__name {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1em;
+  }
+
+  &__track {
+    font-weight: 400;
+    font-size: 20px;
+    opacity: 0.7;
+    line-height: 1.2em;
+ 
+    min-height: 25px;
+  }
+}
+/////////////////////////////////////////////////////////////////////////scale out
+// .scale-out-enter-active {
+//   transition: all .35s ease-in-out;
+// }
+// .scale-out-leave-active {
+//   transition: all .35s ease-in-out;
+// }
+// .scale-out-enter {
+//   transform: scale(.55);
+//   pointer-events: none;
+//   opacity: 0;
+// }
+// .scale-out-leave-to {
+//   transform: scale(1.2);
+//   pointer-events: none;
+//   opacity: 0;
+// }
+
+/////////////////////////////////////////////////////////////////////////scale in
+
+// .scale-in-enter-active {
+//   transition: all .35s ease-in-out;
+// }
+// .scale-in-leave-active {
+//   transition: all .35s ease-in-out;
+// }
+// .scale-in-enter {
+//   transform: scale(1.2);
+//   pointer-events: none;
+//   opacity: 0;
+// }
+// .scale-in-leave-to {
+//   transform: scale(.55);
+//   pointer-events: none;
+//   opacity: 0;
+// }
+
+
+/////////////////////////////////////////////////////////////////////////scroll
+
+input[type=range] {
+  -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+  width: 100%; /* Specific width is required for Firefox. */
+  background: transparent; /* Otherwise white in Chrome */
+  border-radius: 10px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+
+input[type=range]:focus {
+  outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  cursor: pointer;
+  border-radius: 10px;
+  /* Hides the slider so custom styles can be added */
+  background: transparent; 
+  border-color: transparent;
+  color: transparent;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 6px;
+  cursor: pointer;
+  background: #bccbde;
+  border-radius: 10px;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #bccbde;
+}
+
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 6px;
+  cursor: pointer;
+  background: #bccbde;
+  border-radius: 10px;
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 6px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+  border-radius: 10px;
+}
+
+input[type=range]::-ms-fill-lower {
+  background: #bccbde;
+  border-radius: 10px;
+}
+
+input[type=range]:focus::-ms-fill-lower {
+  background: #bccbde;
+}
+
+input[type=range]::-ms-fill-upper {
+  background: #bccbde;
+  border-radius: 10px;
+}
+
+input[type=range]:focus::-ms-fill-upper {
+  background: #bccbde;
+}
+
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  background: #bccbde;
+  cursor: pointer;
+  margin-top: -9.5px;
+  transition: 1s ease-in-out;
+}
+
+input[type=range]::-webkit-slider-thumb:hover {
+background: #cdd422;
+transition: 1s ease-in-out;
+}
+
+/* All the same stuff for Firefox */
+input[type=range]::-moz-range-thumb {
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #bccbde;
+  cursor: pointer;
+}
+
+/* All the same stuff for IE */
+input[type=range]::-ms-thumb {
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #bccbde;
+  cursor: pointer;
+}
+
+.current-time {
+  margin-top: 10px;
+}
+
+.titleDetail {
+  text-decoration: underline;
+}
+
+.descriptionSong{
+  height: 0;
+  width: 290px;
+  overflow: auto;
+  margin-left: 15px;
+  margin-right: 15px;
+  background-color: #e6e9f0;
+  color: #71829e;
+  font-weight: bold;
+  animation: moveUp 0.5s;
+  -webkit-animation: moveUp 0.5s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards ;
+  padding-left: 15px;
+  line-height: 25px;
+  display: inline-block;
+
+  div {
+    font-size: 17px;
+    font-weight: 500;
+    margin: 0;
+    color: #71829e;
+
+    span {
+      font-size: 18px;
+      display: inline-block;
+      font-weight: bold;
+    }
+  }
+
+  &.show{
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@keyframes moveDown{
+  from {
+    height: 0px;
+  }
+  to {
+    height: 100px;
+  }
+}
+
+@keyframes moveUp{
+  from {
+    height: 100px;
+  }
+  to {
+    height: 0px;
+  }
+}
+
+.descriptionSong::-webkit-scrollbar-track{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: #F5F5F5;
+}
+
+.descriptionSong::-webkit-scrollbar {
+	width: 6px;
+  background-color: #F5F5F5;
+}
+
+.descriptionSong::-webkit-scrollbar-thumb {
+  background-color: #cdd422;
+}
+
+.show {
+  animation: moveDown 0.5s;
+  -webkit-animation: moveDown 0.5s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards ;
 }

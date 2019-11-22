@@ -1,71 +1,76 @@
+$hoverColor: #f7c331;
+$highlightColor: #f7882f;
+
 @font-face {
 	src: url('https://res.cloudinary.com/dr6lvwubh/raw/upload/v1529908256/CompressaPRO-GX.woff2');
 	font-family:'Compressa VF';
 	font-style: normal;
 }
 
+@mixin middle-position {
+    width: 100%;
+    left: 50%;
+    text-align: center;
+    transform: translateX(-50%) translateY(-50%);
+}
+
 .wrapper-map {
+    font-family: 'Compressa VF';
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 100vh;
-   // padding: 13% 20% 7% 20%;
-   transition: all .3s ease-in-out;
+    padding: 13% 20% 7% 20%;
+    
+    #map {
+        width: 100%;
+        transition:  all 0.4s ease-in-out;
+    }
+
+    #map path {
+        fill: #ccced3;
+        transition: .7s;
+        cursor: pointer;
+        stroke: rgba(255, 255, 255, 0.548);
+        stroke-width: 0.4px;
+    }
+
+    #map path:hover {
+        fill: $hoverColor;
+    }
+                                                       /*CHANGE STATE*/
+    #map .highlight {
+        fill: $highlightColor;
+        stroke: transparent;
+    }
+    #map .highlightPlaces {
+        fill:#c0c1c7;
+    }
 }
 
-#map {
-    width: 100%;
-}
-
-#map path {
-    fill: #ccced3;
-	transition: .7s;
-	cursor: pointer;
-    stroke: rgba(255, 255, 255, 0.548);
-    stroke-width: 0.4px;
-}
-#map path:hover {
-    fill: #f7c331 
-}
-                                                        /*CHANGE STATE*/
-#map .highlight {
-    fill: #f7882f;
-    stroke: transparent;
-}
-
+                                                       /*COUNTRY'S NAME UNDER THE MAP */
 #selectedCountry {
     position: absolute;
-    display: flex;
-    width: 100%;
-    justify-content: center;
     bottom: 10px;
-    left: 0;
     color: #431c5d;
-    font-family: 'Compressa VF';
     font-size: 14px;
-    letter-spacing: 0.75em;
+    letter-spacing: 0.45em;
+    @include middle-position;
 }
-
-.attention{
-    &active{
-        display: flex;
-    }
-
+                                                       /*TITLE ABOVE MAP */
+#title {
+    top: 10px;
     position: absolute;
-    display: none;
-    left: 50%;
-    border-radius: 5px;
-    bottom: 10%;
-    transform:translateX(-50%);
-    background: #f7c331;
-    color: #fff;
-    font-size: 20px;
-    padding: 5px 10px;
-    opacity: 1;
-    transition: all .3s ease-in-out;
-    &-hide{
-        opacity: 0;
-        transition: all .3s ease-in-out;
+    z-index: -1;
+    height: 200px;
+    @include middle-position;
+
+    canvas {
+        height: 300px;
     }
 }
+ 
+ 
+ 
+  

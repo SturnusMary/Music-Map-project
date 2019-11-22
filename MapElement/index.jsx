@@ -1,9 +1,7 @@
 import React from 'react';
 import s from './stylesheet.scss';
 import PropTypes from 'prop-types';
-import db from '../db.json';
-import { zoom } from "./zoom/index";
-// import {mojs} from './mojs';
+import {TextAnimation} from './animationTitle';
 
 let selectedTd;
 
@@ -15,9 +13,8 @@ export class MapElement extends React.Component {
         }
         this.handleClickMap = this.handleClickMap.bind(this);
         this.highlight = this.highlight.bind(this);
-
     }
-
+ 
     handleOnmouseover(event){
         const target = event.target.closest('path');
         if (!target) return;
@@ -34,6 +31,7 @@ export class MapElement extends React.Component {
         const target = event.target.closest('path');
         if (!target) return;
         if(!map.contains(target)) return;
+
         selectedCountry.remove();
     }
 
@@ -56,33 +54,28 @@ export class MapElement extends React.Component {
         if (selectedTd) { 
             selectedTd.classList.remove('highlight');
         }
+
         selectedTd = path;
         selectedTd.classList.add('highlight');
     }
 
     componentDidUpdate(){
-        let PopUpBlur = document.getElementById('map');
-       
+        clearTimeout(this.timerID);
+        
         if(!this.props.finalSong &&  this.props.stateForPopUp ) {
-            PopUpBlur.classList.add('blur-in');
-            setTimeout(this.displayNone, 3000);
+            map.classList.add('blur-in');
+            this.timerID = setTimeout(this.displayNone, 3000);
         }
     }
 
-    componentDidMount(){
-        this.zoom = zoom();
-    }
-
     displayNone(){
-        let PopUpBlur = document.getElementById('map');
-        PopUpBlur.classList.remove('blur-in');
+        map.classList.remove('blur-in');
     }
 
     render() {
         return (
             <div className="wrapper-map" id = "wrapperMap">
-            <h1 id="title">let the music play</h1>
-
+            <TextAnimation />
                 <svg className={!this.props.finalSong && this.props.stateForPopUp ? 'blur-in' : ''}
                     onClick={this.handleClickMap}
                     onMouseOver={this.handleOnmouseover}
@@ -1119,12 +1112,13 @@ export class MapElement extends React.Component {
                         id="ZW"/>
                 </svg>
 
-
-                <div className="attention" id="msg"></div>
             </div>
         )
     }
 }
+
 MapElement.propType = {
     onPlaceChange: PropTypes.func,
+    stateForPopUp:  PropTypes.string,
+    finalSong: PropTypes.object,
 }
