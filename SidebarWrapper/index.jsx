@@ -39,8 +39,8 @@ export class SidebarWrapper extends React.Component {
               </g>
               </svg>
               
-            <aside id="sidebar-wrapper" className="sidebar-wrapper">
-
+            <aside id="aside"  className={ localStorage.getItem('hint')  ? 'sidebar-wrapper' : 'blur sidebar-wrapper'}>
+               {/* id ="sidebar-wrapper" */}
                <svg className="sidebar" id='sidebar' viewBox="0 0 50 800" >
                   <path
                         className="s-path"

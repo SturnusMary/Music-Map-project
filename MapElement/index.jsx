@@ -79,7 +79,7 @@ export class MapElement extends React.Component {
 
     render() {
         return (
-            <div className="wrapper-map" id = "wrapperMap">
+            <div id = "wrapperMap" className={this.props.className}>
             <TextAnimation />
             <span id="zoomValue">1</span>
                 <div id="svgContainer">

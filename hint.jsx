@@ -1,31 +1,34 @@
 import React from 'react'; 
 import PropTypes from 'prop-types';
 
+let hintState;
 export class Hint1 extends React.Component {
     constructor(props){
         super(props)
-        this.state = {
-            haveHint: false,
-        }
+    
         this.hendlerDelateSecond = this.hendlerDelateSecond.bind(this);
         this.hendlerDelate = this.hendlerDelate.bind(this);
+        this.hendlerDelateThird = this.hendlerDelateThird.bind(this);
     }
     hendlerDelate(){
         hint1.remove();
-            this.setState({
-                haveHint: true,
-            })
+        hintState = true
+        this.props.onHintChange(hintState);
         // localStorage.setItem('hint', true)
     }
+    
     hendlerDelateSecond(){
         hint2.remove();
-        this.setState({
-            haveHint: 'true',
-        })
+        hintState = 'true'
+        this.props.onHintChange(hintState);
     }
+
     hendlerDelateThird(){
         hint3.remove();
+        hintState = 'false'
+        this.props.onHintChange(hintState);
     }
+    
     render(){
         // localStorage.clear()
         return (
@@ -41,13 +44,13 @@ export class Hint1 extends React.Component {
                     id = 'hint2'
                     className = 'hint2-content'
                     onClick={this.hendlerDelateSecond}
-                    innerStyle = {{display: !this.state.haveHint ? 'none' : 'flex'}}
+                    innerStyle = {{display: !hintState ? 'none' : 'flex'}}
                     >Then click on one <br/> of the countries</Hint>
                 <Hint 
                     id = 'hint3'
                     className = 'hint3-content'
                     onClick={this.hendlerDelateThird}
-                    innerStyle = {{display: this.state.haveHint != 'true' ? 'none' : 'flex'}} 
+                    innerStyle = {{display: hintState != 'true' ? 'none' : 'flex'}} 
                     >There's a music player,<br /> you can listen a piece of music <br />  that is suitable <br />  for the selected criteria </Hint>
             </React.Fragment>
         )
@@ -70,6 +73,7 @@ function Hint(props){
 
 Hint1.propType = {
     isLoading: PropTypes.bool,
+    onHintChange: PropTypes.func,
 }
 
 Hint.propType = {

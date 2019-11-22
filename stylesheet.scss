@@ -326,5 +326,9 @@ h1.stroke span:after {
 }
 
 
-
+.blur {
+    filter: blur(4px);
+    pointer-events: none;
+}
+ 
 
