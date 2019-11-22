@@ -6,15 +6,16 @@ export class PopUp extends React.Component {
         let PopUpElement = document.querySelector('.pop-up-explanation');
         PopUpElement.style.display = 'none'
     }
+    
     componentDidUpdate(){
+      clearTimeout(this.timerID);
         let PopUpElement = document.querySelector('.pop-up-explanation');
         if( !this.props.finalSong && this.props.stateForPopUp ) {
             PopUpElement.style.display = 'block';
-            console.log('block')
-            setTimeout(this.displayNone, 3000);
+            this.timerID = setTimeout(this.displayNone, 3000);
         }
-        
     }
+
   render(){
     return(
         <React.Fragment>
@@ -110,4 +111,5 @@ export class PopUp extends React.Component {
 
 PopUp.propType = {
     finalSong: PropTypes.object,
+    stateForPopUp: PropTypes.string,
 }

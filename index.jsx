@@ -5,8 +5,9 @@ import {MapElement} from './MapElement/index';
 import {SidebarWrapper} from './SidebarWrapper/index';
 import {SelectWrapper} from './SelectWrapper/index';
 import {Loader} from './Loader/index';
-import {titleAnimation} from './animationTitle';
+
 import {PopUp} from './modal';
+import {Hint1} from './hint';
 import db from './db.json';
 
 class App extends React.Component {
@@ -24,11 +25,11 @@ class App extends React.Component {
         this.dbOfSongs = db.songs;
     }
     componentDidMount() {
-        // this.setState({
-        //     place: 'true',
-        // })
-        setTimeout(this.onLoad, 4000);
-        titleAnimation();
+       this.timerID = setTimeout(this.onLoad, 4000);
+    }
+
+    componentDidUpdate(){
+        clearTimeout(this.timerID);
     }
 
     onLoad(){this.setState({isLoading: false})}
@@ -39,51 +40,74 @@ class App extends React.Component {
         document.getElementById("sidebar-wrapper").classList.toggle('active')
     }
 
-    filterByPlace(place){
-        let arrayOfOneCountry =[];
-        for(let i=0; i < this.dbOfSongs.length; i++) {
-           for(let k in this.dbOfSongs[i]) {
-                 if(place == this.dbOfSongs[i][k]) {
-                    arrayOfOneCountry.push(this.dbOfSongs[i])
-                 }
-           }
-        }
-        return arrayOfOneCountry;
-    }
-
-    filterByTime(time, arr){
+    filterByPlace(place, arr){
         let objOfOneSong;
         for(let i=0; i < arr.length; i++) {
-           for(let k in arr[i]) {
-              if(time == arr[i][k]) {
-                 objOfOneSong = arr[i];
-                 return objOfOneSong;
-              }
-           }
+            for(let k in arr[i]) {
+               if(place == arr[i][k]) {
+                  objOfOneSong = arr[i];
+                  return objOfOneSong;
+               }
+            }
+         }
+    }
+
+    filterByTime(time){
+      let arrayOfCountries =[];
+        for(let i=0; i < this.dbOfSongs.length; i++) {
+            for(let k in this.dbOfSongs[i]) {
+                  if(time == this.dbOfSongs[i][k]) {
+                     arrayOfCountries.push(this.dbOfSongs[i])
+                  }
+            }
+         }
+         return arrayOfCountries;
+    }
+    
+    highlightPlaces(array){
+        let path;
+        let pathDel;
+        let arrayClass = document.querySelectorAll('.highlightPlaces');
+        for(let i = 0; i < arrayClass.length; i++){
+            pathDel = document.getElementById(arrayClass[i].id);
+            if(pathDel){
+                pathDel.classList.remove('highlightPlaces');
+            }
         }
+        
+        for(let i = 0; i < array.length; i++){
+            path = document.getElementById(array[i].countryId);
+      
+            if(path){
+                path.classList.add('highlightPlaces');  
+            }    
+        }
+
     }
 
     render() {
-     
-        const songs = this.filterByPlace(this.state.place || null);
-        let finalSong = this.filterByTime(this.state.time || 1900, songs);
-      
-        console.log(this.state.place)
+        const songs  = this.filterByTime(this.state.time || 1900);
+        let  finalSong = this.filterByPlace(this.state.place || null, songs);
+        let highlightCountries = this.highlightPlaces(songs);
+        console.log(songs)
         return(
             <React.Fragment>
-                {/* <Loader isLoading={this.state.isLoading} /> */}
-                {/* <PopUp finalSong={finalSong} stateForPopUp={this.state.place}> </PopUp> */}
-                <main>
-                    
+                <Loader isLoading={this.state.isLoading} />
+                <PopUp finalSong={finalSong} stateForPopUp={this.state.place}> </PopUp>
+                <Hint1 isLoading={this.state.isLoading}/>
+                <main >
+                    <aside>
                         <SidebarWrapper 
                             finalSong={finalSong}>
                         </SidebarWrapper>
-
+                    </aside>
+                    <button id="showSideBar" aria-label="showSideBar" onClick={this.onClickButtonSideBarShow} />
                     <SelectWrapper 
                         items={this.items}
                         active={0}
                         decade={0}
                         onTimeChange={this.onTimeChange} />
+                      
                         <MapElement finalSong={finalSong} onPlaceChange={this.onPlaceChange} stateForPopUp={this.state.place}/>
                 </main>
             </React.Fragment>
@@ -92,7 +116,7 @@ class App extends React.Component {
 }
 
 ReactDOM.render(
-    <div className="container">
+    <div className="container" id="mainContainer">
         <App />
     </div>,
    document.getElementById('root')

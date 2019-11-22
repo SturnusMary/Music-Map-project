@@ -61,8 +61,8 @@ export class SelectWrapper extends React.Component {
     
     render() {
         return(
-            <div id="carousel" className="noselect select-wrapper">
-                <div className="inner-select-wrapper">
+            <div id="carousel" className="noselect">
+                <div className="wrapper-select">
                     <svg
                         className="arrowMain arrow-top"
                         onClick={this.bottomClick}

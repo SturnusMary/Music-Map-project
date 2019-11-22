@@ -1,9 +1,11 @@
 $speed: 2.5s;
+$colorElement: #ccc;
+$colorBackground: #444;
 
-.loader-wrapper {
-    background: radial-gradient(#eee,#444);
+.wrapper-loader {
+    background: radial-gradient(#eee, $colorBackground);
     position: relative;
-    z-index: 1002;
+    z-index: 10;
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -29,6 +31,7 @@ $speed: 2.5s;
         margin-right: 5px;
         float: left;
         margin-top: 25%;
+
         &:last-child {
             margin-right: 0;
         }
@@ -82,17 +85,17 @@ $speed: 2.5s;
 
 @keyframes load {
     0% {
-        background: #ccc;
+        background: $colorElement;
         margin-top: 25%;
         height: 10%;
     }
     50% {
-        background: #444;
+        background: $colorBackground;
         height: 100%;
         margin-top: 0;
     }
     100% {
-        background: #ccc;
+        background: $colorElement;
         height: 10%;
         margin-top: 25%;
     }

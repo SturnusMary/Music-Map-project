@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 export function Loader(props) {
     return (
         <div
-            className='loader-wrapper'
+            className='wrapper-loader'
             style={{
                 display: props.isLoading
                     ? 'block'
