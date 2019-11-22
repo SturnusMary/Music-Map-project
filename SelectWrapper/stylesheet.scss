@@ -31,6 +31,7 @@ $level0-color: #431c5d;
 $level1-color: #431c5d7e;
 $level2-color: #431c5d31;
 
+/*ARROW ANIMATION*/
 
 #carousel {
     position: fixed;
@@ -46,25 +47,48 @@ $level2-color: #431c5d31;
         @include flex;
         position: relative;
         height: 55%;
+        
+        .arrow{
+            &Main {
+                position: absolute;
+                width: 20px;
+                text-align: center;
+                cursor: pointer;
+                z-index: 1000;
+                height: auto;
+                overflow: visible;
 
-        .arrowMain {
-            position: absolute;
-            width: 20px;
-            text-align: center;
-            cursor: pointer;
-            z-index: 1000;
-        }
-        
-        .arrow-top {
-            top: 0;
-            transform: rotate(270deg);
-        }
-        
-        .arrow-bottom {
-            bottom: 0;
-            transform: rotate(-90deg);
-        }
-        
+                polygon, path {
+                    transition: all 0.5s $ease;
+                    fill: #431c5d;
+                    stroke: none;
+                }
+         
+                &:hover{
+
+                    &  path, polygon{
+                        transition: all 1s $ease;
+                        fill: #e05915;   
+                    }
+                    & .arrow {
+                        animation: arrow-anim 2.5s $ease infinite;
+
+                        &-fixed {
+                            animation: arrow-fixed-anim 2.5s $ease infinite;
+                        }
+                    }
+                }
+            }
+            &-top {
+                top: 0;
+                transform: rotate(270deg);
+            }
+
+            &-bottom {
+                bottom: 0;
+                transform: rotate(-90deg);
+            }
+        } 
     }
 }
 
@@ -82,104 +106,109 @@ span {
     }
 }
 
-.level-2 {
-    height: $level2-height;
-    width: $level2-width;
-    font-weight: $level2-fontW;
-    background-color:$level2-color;
-    font-size: $level2-font;
+.level{
+    &-1 {
+        height: $level1-height;
+        width: $level1-width;
+        font-weight: $level1-fontW;
+        background-color: $level1-color;
+        margin-bottom: 10px;
+        font-size: $level1-font;
+    }
+    &-2 {
+        height: $level2-height;
+        width: $level2-width;
+        font-weight: $level2-fontW;
+        background-color:$level2-color;
+        font-size: $level2-font;
+    }
+    &0 {
+        height: $level0-height;
+        width: $level0-width;
+        font-size: $level0-font;
+        font-weight: $level0-fontW;
+        background-color: $level0-color;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    &1 {
+        height: $level1-height;
+        width: $level1-width;
+        font-weight: $level1-fontW;
+        background-color:  $level1-color;
+        margin-top: 10px;
+        font-size: $level1-font;
+    }
+    &2 {
+        height: $level2-height;
+        width: $level2-width;
+        line-height: $level2-height;
+        background-color: $level2-color;
+        font-size: $level2-font;
+        font-weight: $level2-fontW;
+    }
+
 }
 
-.level-1 {
-    height: $level1-height;
-    width: $level1-width;
-    font-weight: $level1-fontW;
-    background-color: $level1-color;
-    margin-bottom: 10px;
-    font-size: $level1-font;
+
+.left{
+
+    &-leave {
+        opacity: 1;
+        height: $level2-height;
+        width: $level2-width; 
+        
+        &.left-leave-active {
+            opacity: 0;
+            height: $level2-height - 30;
+            width: $level2-width - 20;
+            transition: left 1s, opacity 0.2s, height 0.3s, width 0.5s, margin-top 0.3s;
+        }
+    }
+
+    &-enter {
+        opacity: 0;
+        height: $level2-height - 30;
+        width: $level2-width - 20;
+        
+        &.left-enter-active {
+            opacity: 1;
+            height: $level2-height;
+            width: $level2-width;
+            transition: left 1s, opacity 0.2s, height 0.3s, width 0.5s, margin-top 0.3s;
+        }
+    }
 }
 
-.level0 {
-    height: $level0-height;
-    width: $level0-width;
-    font-size: $level0-font;
-    font-weight: $level0-fontW;
-    background-color: $level0-color;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
+.right{
 
-.level1 {
-    height: $level1-height;
-    width: $level1-width;
-    font-weight: $level1-fontW;
-    background-color:  $level1-color;
-    margin-top: 10px;
-    font-size: $level1-font;
-}
+    &-leave {
+        height: $level2-height;
+        opacity: 1;
+        width: $level2-width;
 
-.level2 {
-    height: $level2-height;
-    width: $level2-width;
-    line-height: $level2-height;
-    background-color: $level2-color;
-    font-size: $level2-font;
-    font-weight: $level2-fontW;
-}
+        &.right-leave-active {
+            opacity: 0;
+            height: $level2-height - 30;
+            width: $level2-width - 20;
+            transition: left 1s, opacity 0.2s, height 0.3s, width 0.5s, margin-bottom 0.3s,;
+        }
+    }
 
-.left-enter {
+
+    &-enter {
     opacity: 0;
     height: $level2-height - 30;
     width: $level2-width - 20;
-}
 
-.right-enter {
-    opacity: 0;
-    height: $level2-height - 30;
-    width: $level2-width - 20;
+    &.right-enter-active {
+        opacity: 1;
+        height: $level2-height;
+        width: $level2-width;
+        transition: left 1s, opacity 0.2s, height 0.3s, width 0.5s, margin-bottom 0.3s;
+    }
 }
-
-.left-enter.left-enter-active {
-    opacity: 1;
-    height: $level2-height;
-    width: $level2-width;
-    transition: left 1s, opacity 0.2s, height 0.3s, width 0.5s, margin-top 0.3s;
 }
-
-.right-enter.right-enter-active {
-    opacity: 1;
-    height: $level2-height;
-    width: $level2-width;
-    transition: left 1s, opacity 0.2s, height 0.3s, width 0.5s, margin-bottom 0.3s;
-}
-
-.left-leave {
-    opacity: 1;
-    height: $level2-height;
-    width: $level2-width; 
-}
-
-.right-leave {
-    height: $level2-height;
-    opacity: 1;
-    width: $level2-width;
-}
-
-.left-leave.left-leave-active {
-    opacity: 0;
-    height: $level2-height - 30;
-    width: $level2-width - 20;
-    transition: left 1s, opacity 0.2s, height 0.3s, width 0.5s, margin-top 0.3s;
-}
-
-.right-leave.right-leave-active {
-    opacity: 0;
-    height: $level2-height - 30;
-    width: $level2-width - 20;
-    transition: left 1s, opacity 0.2s, height 0.3s, width 0.5s, margin-bottom 0.3s,;
-}
-
-                                                       /*TEXT ANIMATION, MIDDLE ELEMENT*/
 
 .example {
     position: relative;
@@ -204,28 +233,6 @@ span {
     }
     100% {
         font-variation-settings: "ital" 0, "wght" 600, "wdth" 90;
-    }
-}
-                                                       /*ARROW ANIMATION*/
-#carousel {
-    .arrowMain {
-        height: auto;
-        overflow: visible;
-        polygon, path {
-            transition: all 0.5s $ease;
-            fill: #431c5d;
-            stroke: none;
-        }
-        &:hover polygon, &:hover path {
-            transition: all 1s $ease;
-            fill: #e05915;   
-        }
-        &:hover .arrow {
-            animation: arrow-anim 2.5s $ease infinite;
-        }
-        &:hover .arrow-fixed {
-            animation: arrow-fixed-anim 2.5s $ease infinite;
-        }
     }
 }
   

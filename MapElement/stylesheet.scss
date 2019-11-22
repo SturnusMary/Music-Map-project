@@ -21,32 +21,41 @@ $highlightColor: #f7882f;
     align-items: center;
     width: 100%;
     height: 100vh;
-    padding: 13% 20% 7% 20%;
-    
-    #map {
-        width: 100%;
-        transition:  all 0.4s ease-in-out;
-    }
+}
 
-    #map path {
+#map {
+    width: 100%;
+    transition:  all 0.4s ease-in-out;
+
+    & path {
         fill: #ccced3;
         transition: .7s;
         cursor: pointer;
         stroke: rgba(255, 255, 255, 0.548);
         stroke-width: 0.4px;
+
+        &:hover {
+            fill: $hoverColor;
+        }
     }
 
-    #map path:hover {
-        fill: $hoverColor;
+        /*CHANGE STATE*/
+    & .highlightPlaces {
+        fill:#c0c1c7;
     }
-                                                       /*CHANGE STATE*/
-    #map .highlight {
+    
+    & .highlight {
         fill: $highlightColor;
         stroke: transparent;
     }
-    #map .highlightPlaces {
-        fill:#c0c1c7;
-    }
+
+}
+
+
+#zoomValue{
+    position: absolute;
+    right: 100px;
+    bottom: 50px;
 }
 
                                                        /*COUNTRY'S NAME UNDER THE MAP */

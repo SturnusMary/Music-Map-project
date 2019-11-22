@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import s from './stylesheet.scss';
 
 let youTubePlayer;
+
 export class Player extends React.Component {
     constructor(props) {
         super(props);
@@ -15,6 +16,7 @@ export class Player extends React.Component {
         this.youTubePlayerPause = this.youTubePlayerPause.bind(this);
         this.youTubePlayerPlay = this.youTubePlayerPlay.bind(this);
         this.onStateChange =  this.onStateChange.bind(this);
+        this.transitionName = null;
     }
     componentDidMount() {
         if (!youTubePlayer) {
@@ -54,11 +56,9 @@ export class Player extends React.Component {
             })
         });
     }
-
     onError(event) {
         console.log("onError Call: " + event + " data: " + event.data);
     }
-
     buttonDisabled(){
         document.getElementById('icon-play').style.display ='none';
         document.getElementById('icon-pause').style.display ='block';
@@ -78,28 +78,19 @@ export class Player extends React.Component {
            this.setState({
             duration: youTubePlayer.getDuration(),
           })
-            // this.setState({valueTime: youTubePlayer.getCurrentTime() && youTubePlayer.getDuration() ? youTubePlayer.getCurrentTime() * 100 / youTubePlayer.getDuration() : 0})
         }
         this.lastVideoId = this.props.src; 
     }
 
     onReady(event) {
         let player = event.target;
-        player.loadVideoById({suggestedQuality: 'tiny', videoId: `${this.props.src}`});
+        player.loadVideoById({suggestedQuality: 'tiny', videoId: ``});
         player.pauseVideo();
     }
     
     onStateChange(event) {
-        if(event.data == '1'){
-            this.status = 'play'
-        } else if (event.data == '2'){
-            this.status = 'pause'
-        }else if (event.data == '0'){
-            this.status = 'finished'
-        }
-        if ( this.status === 'play') {
+        if (event.data == '1') {
             this.timerId = setInterval(this.youTubePlayerDisplayInfos, 500);
-            
         } else {
             clearInterval(this.timerId);
         }
@@ -131,8 +122,8 @@ export class Player extends React.Component {
     }
     
     youTubePlayerCurrentTimeChange(event) {
-        
         this.setState({valueTime: event.target.value})
+        
         if (this.youTubePlayerActive()) {
             youTubePlayer.seekTo(event.target.value * youTubePlayer.getDuration() / 100, true);
         }
@@ -158,10 +149,13 @@ export class Player extends React.Component {
                 this.setState({
                     valueTime: currentPercent,
                 })
-            this.duration = `${~~((duration/10)/60)}${~~((duration)/60)}:${~~((duration%60)/10)}${~~((duration/60)*100)%10}`;
-            this.currentTime =  `${~~((current/10)/60)}${~~((current)/60)}:${~~((current%60)/10)}${~~((current/60)*100)%10}`;
-            console.log(`current${current}, duration${duration}, currentPercent${currentPercent}, this.state.valueTime${this.state.valueTime}`)
+            this.duration = ('0'+(duration -(duration %= 60)) / 60 + (9<duration?':':':0') + duration).split('.')[0];
+            this.currentTime = ('0'+(current -(current %= 60)) / 60 + (10<current?':':':0') + current).split('.')[0];
         }
+    }
+
+    openDetail(){
+        document.getElementById('descriptionSong').classList.toggle('show');
     }
     
     render() {
@@ -171,15 +165,12 @@ export class Player extends React.Component {
                         <div id="YouTube-player" style={{display: 'none'}}></div>
                         <div className="player__top">
                             <div className="player-cover">
-                                <transition-group className="transitionName">
+                                <transition-group name="transitionName">
                                     <div className="player-cover__item" style={{ backgroundImage: `url(${this.props.imageUrl})`}}></div>
                                 </transition-group>
-                                <div className='container-animation'>
-                                    <img className={this.status != 'play' ? 'null' : 'vinyl'} src="http://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Vynil_vinil_92837841.png/603px-Vynil_vinil_92837841.png" />
-                                </div>
                             </div>
                             <div className="player-controls">
-                                <div >
+                                <div className="player-controls-range">
                                     <input
                                         id="YouTube-player-volume"
                                         type="range"
@@ -229,6 +220,14 @@ export class Player extends React.Component {
                         </div>
                     </div>
                     <div ></div>
+                </div>           
+                <span onClick={this.openDetail} className="titleDetail">More detail</span>
+                <div className="descriptionSong" id='descriptionSong'>
+                    <div><span>Country:</span> {this.props.country ? this.props.country: 'no information'},</div>
+                    <div><span>Release:</span> {this.props.releaseDate ? this.props.releaseDate: 'no information'},</div>
+                    <div><span>Album:</span> {this.props.album ? this.props.album: 'no information'},</div>
+                    <div><span>Author/Composer:</span> {this.props.authorComposer ? this.props.authorComposer: 'no information'},</div>
+                    <div><span>Details:</span> {this.props.details ? this.props.details: 'no information'}.</div>
                 </div>
             </div>
         )
@@ -240,4 +239,9 @@ Player.propType = {
     imageUrl: PropTypes.string,
     artist: PropTypes.string,
     title: PropTypes.string,
+    country: PropTypes.string,
+    releaseDate: PropTypes.string,
+    album: PropTypes.string,
+    authorComposer: PropTypes.string,
+    details: PropTypes.string,
 }

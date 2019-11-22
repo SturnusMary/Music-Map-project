@@ -1,159 +1,155 @@
-export function zoom(){
-const NF = 16, 
-			NAV_MAP = {
-				187: { dir:  1, act: 'zoom', name: 'in' } /* + */, 
-                 61: { dir:  1, act: 'zoom', name: 'in' } /* + WTF, FF? */, 
-                107: { dir:  1, act: 'zoom', name: 'in' } /* + WTF, FF? */,
-				189: { dir: -1, act: 'zoom', name: 'out' } /* - */, 
-                173: { dir: -1, act: 'zoom', name: 'out' } /* - WTF, FF? */, 
-                109: { dir: -1, act: 'zoom', name: 'out' } /* - WTF, FF? */, 
-				 37: { dir: -1, act: 'move', name: 'left', axis: 0 } /* ⇦ */, 
-				 38: { dir: -1, act: 'move', name: 'up', axis: 1 } /* ⇧ */, 
-				 39: { dir:  1, act: 'move', name: 'right', axis: 0 } /* ⇨ */, 
-				 40: { dir:  1, act: 'move', name: 'down', axis: 1 } /* ⇩ */
-			}, 
-			_SVG = document.getElementById('map'), 
-			VB = _SVG.getAttribute('viewBox').split(' ').map(c => +c), 
-			DMAX = VB.slice(2), WMIN = 8, 
-			_MSG = document.getElementById('msg');
+export function zoom() {
+    const svgImage = document.getElementById("map");
+    const svgContainer = document.getElementById("svgContainer");
+    const groupPath = document.getElementById('groupPath')
 
-let rID = null, f = 0, nav = {}, tg = Array(4);
-
-function stopAni() {
-  cancelAnimationFrame(rID);
-  rID = null;  
-};
-
-function update() {	
-	let k = ++f/NF, j = 1 - k, cvb = VB.slice();
-	
-	if(nav.act === 'zoom') {		
-		for(let i = 0; i < 4; i++)
-			cvb[i] = j*VB[i] + k*tg[i]
-	}
-	
-	if(nav.act === 'move')	
-		cvb[nav.axis] = j*VB[nav.axis] + k*tg[nav.axis];
-	
-	_SVG.setAttribute('viewBox', cvb.join(' '));
-	
-	if(!(f % NF)) {
-		f = 0;
-		VB.splice(0, 4, ...cvb);
-		nav = {};
-		tg = Array(4);
-		stopAni();
-		return;
-	}
-  
-  rID = requestAnimationFrame(update)
-};
-
-addEventListener('keydown', e => { e.preventDefault()}, false);
-addEventListener('keypress', e => { e.preventDefault()}, false);
-addEventListener('keyup', e => {
-	e.preventDefault();
-	_MSG.classList.add('attention-hide')
-	//_MSG.textContent = '';
-		
-	if(!rID && e.keyCode in NAV_MAP) {
-		nav = NAV_MAP[e.keyCode];
-		
-		if(nav.act === 'zoom') {
-			if((nav.dir === -1 && VB[2] >= DMAX[0]) || 
-				 (nav.dir ===  1 && VB[2] <= WMIN)) {
-				_MSG.textContent = `Cannot ${nav.act} ${nav.name} more`;
-				_MSG.classList.remove('attention-hide')
-				return
-			}
-			
-			for(let i = 0; i < 2; i++) {
-				tg[i + 2] = VB[i + 2]/Math.pow(2, nav.dir);
-				tg[i] = .5*(DMAX[i] - tg[i + 2]);
-			}
-		}
-		
-		else if(nav.act === 'move') {
-			if((nav.dir === -1 && VB[nav.axis] <= 0) || 
-				 (nav.dir ===  1 && VB[nav.axis] >= DMAX[nav.axis] - VB[2 + nav.axis])) {
-				_MSG.textContent = `At the edge, cannot go ${nav.name}`;
-				_MSG.classList.remove('attention-hide')
-				return
-			}
-			
-			tg[nav.axis] = VB[nav.axis] + .5*nav.dir*VB[2 + nav.axis];
-		}
-		
-		update()
-	}
-}, false);
-
-addEventListener('mousewheel', e => {
-    let emulateKeyCode;
-    if(e.wheelDelta > 0){
-        emulateKeyCode = 107
-    } else{
-        emulateKeyCode = 109
+    let viewBox = {
+        x: 0,
+        y: 0,
+        w: svgImage.getAttribute("width"),
+        h: svgImage.getAttribute("height")
     };
-	_MSG.classList.add('attention-hide')
-	//_MSG.textContent = '';
-		
-	if(!rID && emulateKeyCode in NAV_MAP) {
-		nav = NAV_MAP[emulateKeyCode];
-		
-		if(nav.act === 'zoom') {
-			if((nav.dir === -1 && VB[2] >= (DMAX[0]*2)) || 
-				 (nav.dir ===  1 && VB[2] <= WMIN)) {
-				_MSG.textContent = `Cannot ${nav.act} ${nav.name} more`;
-				_MSG.classList.remove('attention-hide')
-				return
-			}
-			
-			for(let i = 0; i < 2; i++) {
-				tg[i + 2] = VB[i + 2]/Math.pow(2, nav.dir);
-				tg[i] = .5*(DMAX[i] - tg[i + 2]);
-			}
-		}
-		
-		update()
-	}
-}, false);
+    svgImage.setAttribute(
+        'viewBox',
+        `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`
+    );
+    const svgSize = {
+        w: svgImage.getAttribute("width"),
+        h: svgImage.getAttribute("height")
+    };
+    let isPanning = false;
+    let startPoint = {
+        x: 0,
+        y: 0
+    };
+    let endPoint = {
+        x: 0,
+        y: 0
+    };;
+    let scale = 1;
 
-map.addEventListener('mousedown', e => {
-	map.addEventListener('mousemove', e => {
-		let emulateKeyCode;
-		let palfPastPageX = window.innerWidth/2;
-		let palfPastPageY = window.innerHeight/2;
-		e.preventDefault();
-		_MSG.classList.add('attention-hide')
-		//_MSG.textContent = '';
-	
-		if(palfPastPageX < e.pageX){
-			emulateKeyCode = 37;
-		} else {
-			emulateKeyCode = 39;
-		}
-			
-		if(!rID && emulateKeyCode in NAV_MAP) {
-			nav = NAV_MAP[emulateKeyCode];
-			
-			if(nav.act === 'move') {
-				if((nav.dir === -1 && VB[nav.axis] <= 0) || 
-					 (nav.dir ===  1 && VB[nav.axis] >= DMAX[nav.axis] - VB[2 + nav.axis])) {
-					_MSG.textContent = `At the edge, cannot go ${nav.name}`;
-					_MSG.classList.remove('attention-hide')
-					return
-				}
-				
-				tg[nav.axis] = VB[nav.axis] + .5*nav.dir*VB[2 + nav.axis];
-				console.log(tg[nav.axis])
-			}
-			
-			update()
-		}
-	}, false);
-	
-}, false)
+    svgContainer.onmousewheel = function (e) {
+        e.preventDefault();
+
+        
+        let w = viewBox.w;
+        let h = viewBox.h;
+        let mx = e.x; //mouse x
+        let my = e.y;
+        let dw = w * Math.sign(e.deltaY) * 0.05;
+        let dh = h * Math.sign(e.deltaY) * 0.05;
+        let dx = dw * mx / svgSize.w;
+        let dy = dh * my / svgSize.h;
+        viewBox = {
+            x: viewBox.x + dx,
+            y: viewBox.y + dy,
+            w: viewBox.w - dw,
+            h: viewBox.h - dh
+        };
+        scale = svgSize.w / viewBox.w;
+        zoomValue.innerText = `${Math.round(scale * 100) / 100}`;
+        svgImage.setAttribute(
+            'viewBox',
+            `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`
+        );
+    }
+
+    svgContainer.onmousedown = function (e) {
+
+        let groupPath = document.getElementById('groupCountry');
+        groupPath = groupPath.getBoundingClientRect();
+
+        isPanning = true;
+        startPoint = {
+            x: e.x,
+            y: e.y,
+        };
+    }
+
+    svgContainer.addEventListener('mousemove', mouseMoveMap, false)
+    
+    
+    function mouseMoveMap (e) {
+        let groupPath = document.getElementById('groupCountry');
+        groupPath = groupPath.getBoundingClientRect();
+
+        // console.log(groupPath)
+       // console.log(e)
+        
+
+        if(groupPath.left < 50 || groupPath.top < 100 || groupPath.right < 50 || groupPath.bottom < 100){
+            
+            isPanning = false;
+            svgImage.setAttribute(
+                'viewBox',
+                `60 101 ${viewBox.w} ${viewBox.h}`
+            );
+          
+        }
+
+        if (isPanning) {
+    
+    
+            endPoint = {
+                x: e.x,
+                y: e.y
+            };
+            let dx = (startPoint.x - endPoint.x) / scale;
+            let dy = (startPoint.y - endPoint.y) / scale;
+
+            
+            
+       
+            let movedViewBox = {
+                x: viewBox.x + dx,
+                y: viewBox.y + dy,
+                w: viewBox.w,
+                h: viewBox.h
+            };
+            let el = e.path[1].getBoundingClientRect();
+            // console.log(el)
+            if(el.x+el.width<window.innerWidth){
+                svgImage.setAttribute(
+                    'viewBox',
+                    `${movedViewBox.x} ${movedViewBox.y} ${movedViewBox.w} ${movedViewBox.h}`
+                );
+            }
+
+            if(el.y+el.height<window.innerHeight){
+                svgImage.setAttribute(
+                    'viewBox',
+                    `${movedViewBox.x} ${movedViewBox.y} ${movedViewBox.w} ${movedViewBox.h}`
+                );
+            }
+
+            
+        }
+        
+    }
+
+    svgContainer.onmouseup = function (e) {
+        if (isPanning) {
+            endPoint = {
+                x: e.x,
+                y: e.y
+            };
+            let dx = (startPoint.x - endPoint.x) / scale;
+            let dy = (startPoint.y - endPoint.y) / scale;
+            viewBox = {
+                x: viewBox.x + dx,
+                y: viewBox.y + dy,
+                w: viewBox.w,
+                h: viewBox.h
+            };
+            svgImage.setAttribute(
+                'viewBox',
+                `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`
+            );
+            isPanning = false;
+        }
+    }
+
+    svgContainer.onmouseleave = function (e) {
+        isPanning = false;
+    }
 }
-
-

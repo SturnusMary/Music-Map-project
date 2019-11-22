@@ -5,7 +5,6 @@ import {MapElement} from './MapElement/index';
 import {SidebarWrapper} from './SidebarWrapper/index';
 import {SelectWrapper} from './SelectWrapper/index';
 import {Loader} from './Loader/index';
-
 import {PopUp} from './modal';
 import {Hint1} from './hint';
 import db from './db.json';
@@ -35,10 +34,6 @@ class App extends React.Component {
     onLoad(){this.setState({isLoading: false})}
     onTimeChange(time){this.setState({time,})}
     onPlaceChange(place){this.setState({place,})}
-
-    onClickButtonSideBarShow(){
-        document.getElementById("sidebar-wrapper").classList.toggle('active')
-    }
 
     filterByPlace(place, arr){
         let objOfOneSong;
@@ -96,12 +91,11 @@ class App extends React.Component {
                 <PopUp finalSong={finalSong} stateForPopUp={this.state.place}> </PopUp>
                 <Hint1 isLoading={this.state.isLoading}/>
                 <main >
-                    <aside>
+                  
                         <SidebarWrapper 
                             finalSong={finalSong}>
                         </SidebarWrapper>
-                    </aside>
-                    <button id="showSideBar" aria-label="showSideBar" onClick={this.onClickButtonSideBarShow} />
+              
                     <SelectWrapper 
                         items={this.items}
                         active={0}
