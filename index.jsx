@@ -1,15 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import s from './stylesheet.scss';
+import './stylesheet.scss';
 import {MapElement} from './MapElement/index';
 import {SidebarWrapper} from './SidebarWrapper/index';
 import {SelectWrapper} from './SelectWrapper/index';
 import {Loader} from './Loader/index';
 import 'regenerator-runtime/runtime';
-import {PopUp} from './modal';
-import {Hint1} from './hint';
+import {PopUp} from './elements/modal';
+import {Hint1} from './elements/hint';
 import {Mob} from './MobVersia/mob';
 import db from './db.json';
+import {FilterByTime} from './elements/filterByTime';
+import {FilterByPlace} from './elements/filterByPlace';
 
 class App extends React.Component {
     constructor(props){
@@ -31,19 +33,23 @@ class App extends React.Component {
         this.items = [1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010];
         this.dbOfSongs = db.songs;
     }
+
     componentDidMount() {
        this.timerID = setTimeout(this.onLoad, 4000);
        window.addEventListener("resize", this.updateDimensions);
     }
+
     componentWillUnmount() {
         window.removeEventListener("resize", this.updateDimensions);
     }
+
     updateDimensions(){
         this.setState({
             height: window.innerHeight, 
             width: window.innerWidth,
         });
     }
+
     componentDidUpdate(){
         clearTimeout(this.timerID);
 
@@ -82,30 +88,6 @@ class App extends React.Component {
     onPlaceChange(place){this.setState({place,})}
     onHintChange(hint){this.setState({hint,})}
 
-    filterByPlace(place, arr){
-        let objOfOneSong;
-        for(let i=0; i < arr.length; i++) {
-            for(let k in arr[i]) {
-               if(place == arr[i][k]) {
-                  objOfOneSong = arr[i];
-                  return objOfOneSong;
-               }
-            }
-         }
-    }
-
-    filterByTime(time){
-      let arrayOfCountries =[];
-        for(let i=0; i < this.dbOfSongs.length; i++) {
-            for(let k in this.dbOfSongs[i]) {
-                  if(time == this.dbOfSongs[i][k]) {
-                     arrayOfCountries.push(this.dbOfSongs[i])
-                  }
-            }
-         }
-         return arrayOfCountries;
-    }
-    
     highlightPlaces(array){
         let path;
         let pathDel;
@@ -128,14 +110,14 @@ class App extends React.Component {
     }
 
     render() {
-        const songs  = this.filterByTime(this.state.time || 1900);
-        let  finalSong = this.filterByPlace(this.state.place || null, songs);
+        const songs  = FilterByTime(this.state.time || 1900);
+        let  finalSong = FilterByPlace(this.state.place || null, songs);
         let highlightCountries = this.highlightPlaces(songs);
 
         return(
             <React.Fragment>
             {this.state.width > 960 ? (
-                <div id='mainVersia' style={{display: this.state.width < 960 ? 'none' : 'block'}}>
+                <div id='mainVersia'>
                     <Loader isLoading={this.state.isLoading} />
                     <PopUp finalSong={finalSong} stateForPopUp={this.state.place}> </PopUp>
                     <Hint1 isLoading={this.state.isLoading} onHintChange={this.onHintChange}/>
@@ -154,7 +136,7 @@ class App extends React.Component {
                 </div>
             ) :
             (
-                <div id='mobVersia' style={{display: this.state.width < 960 ? 'block' : 'none'}}>
+                <div id='mobVersia'>
                     <Loader isLoading={this.state.isLoading} />
                     <Mob width={this.state.width}/>
                 </div>

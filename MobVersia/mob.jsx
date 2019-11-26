@@ -27,6 +27,7 @@ export class Mob extends React.Component {
     componentDidMount(){
         Noise();
     }
+    
     handlerDisplayPage(displayPage){this.setState({displayPage,})}
     handleCountryName(countryName){this.setState({countryName,})}
     handleDecade(decade){this.setState({decade,})}
