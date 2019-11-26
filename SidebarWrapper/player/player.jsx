@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import s from './stylesheet.scss';
-
-let youTubePlayer;
+import './stylesheet.scss';
 
 export class Player extends React.Component {
     constructor(props) {
@@ -19,9 +17,10 @@ export class Player extends React.Component {
         this.transitionName = null;
         this.changeStatePage = this.changeStatePage.bind(this);
     }
+    
     componentDidMount() {
-        if (!youTubePlayer) {
-            youTubePlayer = new Promise((resolve) => {
+        if (!this.youTubePlayer) {
+            this.youTubePlayer = new Promise((resolve) => {
                 const tag = document.createElement('script');
                 tag.src = 'https://www.youtube.com/iframe_api';
                 const firstScriptTag = document.getElementsByTagName('script')[0];
@@ -32,8 +31,8 @@ export class Player extends React.Component {
             })   
         }
         
-        youTubePlayer.then((YT) => {
-            youTubePlayer = new YT.Player('YouTube-player', {
+        this.youTubePlayer.then((YT) => {
+            this.youTubePlayer = new YT.Player('YouTube-player', {
                 videoId: `bS3uSzk4VwY`,
                 height: 300,
                 width: 400,
@@ -57,9 +56,11 @@ export class Player extends React.Component {
             })
         });
     }
+
     onError(event) {
         console.log("onError Call: " + event + " data: " + event.data);
     }
+
     buttonDisabled(){
         document.getElementById('icon-play').style.display ='none';
         document.getElementById('icon-pause').style.display ='block';
@@ -72,12 +73,12 @@ export class Player extends React.Component {
 
     componentDidUpdate() {
         if (this.props.src !== this.lastVideoId) {
-            youTubePlayer.loadVideoById(
+            this.youTubePlayer.loadVideoById(
                 {suggestedQuality: 'tiny', videoId: `${this.props.src}`}
             );
            this.buttonDisabled()
            this.setState({
-            duration: youTubePlayer.getDuration(),
+            duration: this.youTubePlayer.getDuration(),
           })
         }
         this.lastVideoId = this.props.src; 
@@ -95,7 +96,13 @@ export class Player extends React.Component {
         } else {
             clearInterval(this.timerId);
         }
-      
+
+        if (event.data == '0') {
+            this.buttonEnabled();
+            this.setState({valueTime: 0});
+           
+        }
+
         let volume = Math.round(event.target.getVolume());
         let volumeItem = document.getElementById('YouTube-player-volume');
 
@@ -105,19 +112,19 @@ export class Player extends React.Component {
     }
     
     youTubePlayerActive() {
-        return youTubePlayer && youTubePlayer.hasOwnProperty('getPlayerState');
+        return this.youTubePlayer && this.youTubePlayer.hasOwnProperty('getPlayerState');
     }
 
     youTubePlayerPause() {
         if (this.youTubePlayerActive()) {
-            youTubePlayer.pauseVideo();
+            this.youTubePlayer.pauseVideo();
         }
         this.buttonEnabled()
     }
 
     youTubePlayerPlay() {
         if (this.youTubePlayerActive()) {
-            youTubePlayer.playVideo();
+            this.youTubePlayer.playVideo();
         }
         this.buttonDisabled()
     }
@@ -126,7 +133,9 @@ export class Player extends React.Component {
         this.setState({valueTime: event.target.value})
         
         if (this.youTubePlayerActive()) {
-            youTubePlayer.seekTo(event.target.value * youTubePlayer.getDuration() / 100, true);
+            this.youTubePlayer.seekTo(event.target.value * this.youTubePlayer.getDuration() / 100, true);
+
+            this.youTubePlayer.playVideo();
         }
         this.buttonDisabled()
     }
@@ -135,15 +144,15 @@ export class Player extends React.Component {
         this.setState({valueVolume: event.target.value})
 
         if (this.youTubePlayerActive()) {
-            youTubePlayer.setVolume(this.state.valueVolume);
+            this.youTubePlayer.setVolume(this.state.valueVolume);
         }
     }
   
      youTubePlayerDisplayInfos() {
         
         if (this.youTubePlayerActive) {
-            let current = youTubePlayer.getCurrentTime() || 0;
-            let duration = youTubePlayer.getDuration();
+            let current = this.youTubePlayer.getCurrentTime() || 0;
+            let duration = this.youTubePlayer.getDuration();
             let currentPercent = (current && duration
                                   ? current * 100 / duration
                                   : 0);
@@ -152,25 +161,27 @@ export class Player extends React.Component {
                 })
             this.duration = ('0'+(duration -(duration %= 60)) / 60 + (9<duration?':':':0') + duration).split('.')[0];
             this.currentTime = ('0'+(current -(current %= 60)) / 60 + (10<current?':':':0') + current).split('.')[0];
+            
+            if( this.duration  == this.currentTime || this.duration - 1  == this.currentTime){
+            this.currentTime = '00:00';
+            }
         }
     }
 
     openDetail(){
         document.getElementById('descriptionSong').classList.toggle('show');
     }
+
     changeStatePage(){
         this.pageState = !this.props.state;
         this.props.getStatePage(this.pageState)
     }
+
     render() {
-        // console.log(this.pageState)
         return (
             <div className="wrapper-player">
                     <div className="player">
                         <div id="YouTube-player" style={{display: 'none'}}></div>
-
-                       
-
                         <div className="player__top">
                             <div className="player-cover">
                             <div id="button-back" style={{display: this.props.width < 960 ? 'flex': 'none'}}>
@@ -264,4 +275,6 @@ Player.propType = {
     album: PropTypes.string,
     authorComposer: PropTypes.string,
     details: PropTypes.string,
+    getStatePage: PropTypes.func,
+    state: PropTypes.bool,
 }
