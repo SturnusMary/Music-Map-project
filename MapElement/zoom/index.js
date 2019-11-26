@@ -1,24 +1,19 @@
 export function zoom() {
-    const svgImage = document.getElementById("map");
+    const svgGroupImage = document.getElementById("groupCountry");
     const svgContainer = document.getElementById("svgContainer");
-    const groupPath = document.getElementById('groupCountry');
-    let move = false;
-    let viewBox = {
-        x: 0,
-        y: 0,
-        w: svgImage.getAttribute("width"),
-        h: svgImage.getAttribute("height")
+    let position = {
+        x: 400,
+        y: 300,
+        w: 1009,
+        h: 665,
+        scale: 1,
     };
 
-    svgImage.setAttribute(
-        'viewBox',
-        `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`
+    svgGroupImage.setAttribute(
+        'transform',
+        `translate(${position.x},${position.y})`
     );
 
-    const svgSize = {
-        w: svgImage.getAttribute("width"),
-        h: svgImage.getAttribute("height")
-    };
     let isPanning = false;
     let startPoint = {
         x: 0,
@@ -28,52 +23,13 @@ export function zoom() {
         x: 0,
         y: 0
     };
-    let scale = 1;
 
     svgContainer.addEventListener('mousewheel', mouseWheel, false)
     svgContainer.addEventListener('mousedown', mouseDown, false);
     svgContainer.addEventListener('mouseup', mouseUp, false);
     svgContainer.addEventListener('mouseleave', mouseLeave, false);
 
-    function mouseWheel(e) {
-        e.preventDefault();
-
-        let w = viewBox.w;
-        let h = viewBox.h;
-        let mx = e.x; //mouse x
-        let my = e.y;
-
-        if (scale >= 1) {
-            let dw = w * Math.sign(e.deltaY) * 0.05;
-            let dh = h * Math.sign(e.deltaY) * 0.05;
-            let dx = dw * mx / svgSize.w;
-            let dy = dh * my / svgSize.h;
-            viewBox = {
-                x: viewBox.x + dx,
-                y: viewBox.y + dy,
-                w: viewBox.w - dw,
-                h: viewBox.h - dh
-            };
-
-        } else {
-            viewBox = {
-                x: 0,
-                y: 0,
-                w: 1920,
-                h: 764
-            };
-        }
-        scale = svgSize.w / viewBox.w;
-        zoomValue.innerText = `${Math.round(scale * 100) / 100}`;
-        svgImage.setAttribute(
-            'viewBox',
-            `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`
-        );
-
-    }
-
     function mouseDown(e) {
-
         isPanning = true;
         startPoint = {
             x: e.x,
@@ -83,57 +39,89 @@ export function zoom() {
         svgContainer.addEventListener('mousemove', mouseMoveMap, false)
     }
 
-    function mouseMoveMap(e) {
-        let groupPathBox = groupPath.getBoundingClientRect();
-        let svgImageBox = svgImage.getBoundingClientRect();
+    function setTransform(pos) {
+        svgGroupImage.setAttribute(
+            'transform',
+            `translate(${pos.x + pos.w / 2}, ${pos.y + pos.h / 2}) scale(${pos.scale}) translate(${-pos.w / 2}, ${-pos.h / 2})`
+        );
+    }
 
-        let limits = {
-            left: 50,
-            top: 50,
-            right: svgImageBox.width - groupPathBox.width,
-            bottom: svgImageBox.height / 2 + 50,
-            scale: 5
+    function mouseWheel(e) {
+        e.preventDefault();
+
+        let scale = position.scale + Math.sign(e.deltaY) * 0.05;
+
+        if (scale < 1) {
+            scale = 1;
         }
 
-        if (isPanning) {
-            endPoint = {
-                x: e.x,
-                y: e.y
-            };
-            let dx = 0;
-            let dy = 0;
-            let movedViewBox;
+        if (scale > 2) {
+            scale = 2;
+        }
 
-            if (scale <= 1) {
-                if (limits.left > groupPathBox.x) {
-                    isPanning = false;
-                } else if (limits.right < groupPathBox.x) {
-                    isPanning = false;
-                } else if (limits.top > groupPathBox.y) {
-                    isPanning = false;
-                } else if (limits.bottom < groupPathBox.y) {
-                    isPanning = false;
-                } else {
-                    isPanning = true;
-                    dx = (startPoint.x - endPoint.x) / scale;
-                    dy = (startPoint.y - endPoint.y) / scale;
-                }
-            } else {
-                dx = (startPoint.x - endPoint.x) / scale;
-                dy = (startPoint.y - endPoint.y) / scale;
+        position.scale = scale;
+
+        zoomValue.innerText = `${Math.round(scale * 100) / 100}`;
+        setTransform(position);
+
+    }
+
+    function getNextCoords() {
+        const scale = position.scale;
+        const dx = (startPoint.x - endPoint.x) / scale;
+        const dy = (startPoint.y - endPoint.y) / scale;
+        let nx = position.x - dx;
+        let ny = position.y - dy;
+
+        if (scale < 764 / position.h) {
+            if (ny < 0) {
+                ny = 0;
             }
+            if (ny + position.h > 764) {
+                ny = 764 - position.h;
+            }
+        } else {
+            if (ny + position.h < 764) {
+                ny = 764 - position.h;
+            }
+            if (ny > 0) {
+                ny = 0;
+            }
+        }
 
-            movedViewBox = {
-                x: viewBox.x + dx,
-                y: viewBox.y + dy,
-                w: viewBox.w,
-                h: viewBox.h
-            };
+        if (scale < 1920 / position.w) {
+            if (nx < 0) {
+                nx = 0;
+            }
+            if (nx + position.w * scale > 1920) {
+                nx = 1920 - position.w;
+            }
+        } else {
+            if (nx + position.w * scale > 1920) {
+                nx = 1920 - position.w * scale;
+            }
+            if (nx > 0) {
+                nx = 0;
+            }
+        }
 
-            svgImage.setAttribute(
-                'viewBox',
-                `${movedViewBox.x} ${movedViewBox.y} ${movedViewBox.w} ${movedViewBox.h}`
-            );
+        return {
+            x: nx,
+            y: ny,
+        };
+    }
+
+    function mouseMoveMap(e) {
+        if (isPanning) {
+            endPoint = { x: e.x, y: e.y };
+
+            const { x, y } = getNextCoords();
+
+            setTransform({
+                ...position,
+                x,
+                y,
+            });
         }
 
     }
@@ -144,14 +132,10 @@ export function zoom() {
                 x: e.x,
                 y: e.y
             };
-            let dx = (startPoint.x - endPoint.x) / scale;
-            let dy = (startPoint.y - endPoint.y) / scale;
-            viewBox = {
-                x: viewBox.x + dx,
-                y: viewBox.y + dy,
-                w: viewBox.w,
-                h: viewBox.h
-            };
+            const { x, y } = getNextCoords();
+            
+            position.x = x;
+            position.y = y;
 
             svgContainer.removeEventListener('mousemove', mouseMoveMap)
             isPanning = false;
