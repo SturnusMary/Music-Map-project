@@ -32,14 +32,14 @@ export class SidebarWrapper extends React.Component {
         return(
 
          <React.Fragment>
-            <svg class="arrow-animate arrow-top" width="18px" height="17px" viewBox="-1 0 18 17" version="1.1">
+            <svg className="arrow-animate arrow-top" width="18px" height="17px" viewBox="-1 0 18 17" version="1.1">
                <g>
-               <polygon class="arrow arrow-color" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596" />
-               <polygon class="arrow-fixed arrow-color" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596" />
+               <polygon className="arrow arrow-color" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596" />
+               <polygon className="arrow-fixed arrow-color" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596" />
               </g>
               </svg>
               
-            <aside id="aside"  className={ localStorage.getItem('hint')  ? 'sidebar-wrapper' : 'blur sidebar-wrapper'}>
+            <aside id="aside"  className={ this.props.width < 960 ? 'sidebar-wrapper' : localStorage.getItem('hint')   ? 'sidebar-wrapper' : 'blur sidebar-wrapper'}>
                {/* id ="sidebar-wrapper" */}
                <svg className="sidebar" id='sidebar' viewBox="0 0 50 800" >
                   <path
@@ -54,10 +54,10 @@ export class SidebarWrapper extends React.Component {
                </div>
             </aside>
 
-            <svg class="arrow-animate arrow-bottom" width="18px" height="17px" viewBox="-1 0 18 17" version="1.1">
+            <svg className="arrow-animate arrow-bottom" width="18px" height="17px" viewBox="-1 0 18 17" version="1.1">
                <g>
-               <polygon class="arrow arrow-color" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596" />
-               <polygon class="arrow-fixed arrow-color" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596" />
+               <polygon className="arrow arrow-color" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596" />
+               <polygon className="arrow-fixed arrow-color" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596" />
               </g>
               </svg>
             </React.Fragment>
