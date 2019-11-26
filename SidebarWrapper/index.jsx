@@ -4,12 +4,21 @@ import PropTypes from 'prop-types';
 import {Player} from './player/player';
 import {SideBar} from './sideBar'
 
+import 'regenerator-runtime/runtime';
+
 export class SidebarWrapper extends React.Component {
    constructor(props){
       super(props);
       this.getData = this.getData.bind(this);
+      this.state = {
+         displayPage: 'd',
+     }
+     this.handlerDisplayPage = this.handlerDisplayPage.bind(this);
    }
-
+   async handlerDisplayPage(displayPage){
+      await this.setState({displayPage,})
+      this.props.getStatePage(this.state.displayPage);
+   }
    componentDidMount(){
       this.SideBar = SideBar();
       console.log('asd')
@@ -28,6 +37,7 @@ export class SidebarWrapper extends React.Component {
    }
   
    render() {
+      // console.log(this.state.displayPage)
       const  songUrl = this.getData(this.props.finalSong);
         return(
 
@@ -50,7 +60,7 @@ export class SidebarWrapper extends React.Component {
                   </svg>
 
                <div className="sidebar-content" id="sidebar-content">
-                  <Player {...this.props.finalSong} src={songUrl ? songUrl : null} />
+                  <Player  {...this.props.finalSong} state= {this.props.state} getStatePage={this.handlerDisplayPage} width={this.props.width} src={songUrl ? songUrl : null} />
                </div>
             </aside>
 

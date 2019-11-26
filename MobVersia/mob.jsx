@@ -32,6 +32,7 @@ export class Mob extends React.Component {
     handleDecade(decade){this.setState({decade,})}
 
     render(){
+        console.log(this.state.displayPage);
         const songs  = FilterByTime(this.state.decade || null);
         let finalSong = FilterByPlace(this.state.countryName || null, songs);
         console.log(finalSong);
@@ -60,7 +61,8 @@ export class Mob extends React.Component {
                     <canvas id="noise" className="noise" />
                 </div> 
                 <div id='mobPlayer' style={{display: this.state.displayPage ? 'flex': 'none'}}>
-                    <SidebarWrapper finalSong={finalSong} width={this.props.width}/>
+                {/* */}
+                    <SidebarWrapper getStatePage={this.handlerDisplayPage} state={this.state.displayPage} finalSong={finalSong} width={this.props.width}/>
                 </div>
             </React.Fragment>
         )
