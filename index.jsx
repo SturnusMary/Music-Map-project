@@ -5,8 +5,10 @@ import {MapElement} from './MapElement/index';
 import {SidebarWrapper} from './SidebarWrapper/index';
 import {SelectWrapper} from './SelectWrapper/index';
 import {Loader} from './Loader/index';
+import 'regenerator-runtime/runtime';
 import {PopUp} from './modal';
 import {Hint1} from './hint';
+import {Mob} from './MobVersia/mob';
 import db from './db.json';
 
 class App extends React.Component {
@@ -17,18 +19,31 @@ class App extends React.Component {
             place: false,
             isLoading: true,
             hint: '',
+            height: window.innerHeight, 
+            width: window.innerWidth,
         }
         this.onTimeChange = this.onTimeChange.bind(this);
         this.onPlaceChange = this.onPlaceChange.bind(this);
         this.onHintChange =  this.onHintChange.bind(this);
+        this.updateDimensions = this.updateDimensions.bind(this);
+
         this.onLoad =  this.onLoad.bind(this);
         this.items = [1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000, 2010];
         this.dbOfSongs = db.songs;
     }
     componentDidMount() {
        this.timerID = setTimeout(this.onLoad, 4000);
+       window.addEventListener("resize", this.updateDimensions);
     }
-
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updateDimensions);
+    }
+    updateDimensions(){
+        this.setState({
+            height: window.innerHeight, 
+            width: window.innerWidth,
+        });
+    }
     componentDidUpdate(){
         clearTimeout(this.timerID);
 
@@ -119,20 +134,31 @@ class App extends React.Component {
 
         return(
             <React.Fragment>
-                <Loader isLoading={this.state.isLoading} />
-                <PopUp finalSong={finalSong} stateForPopUp={this.state.place}> </PopUp>
-                <Hint1 isLoading={this.state.isLoading} onHintChange={this.onHintChange}/>
-                <main >
-                    <SidebarWrapper 
-                        finalSong={finalSong}>
-                    </SidebarWrapper>
-                    <SelectWrapper 
-                        items={this.items}
-                        active={0}
-                        decade={0}
-                        onTimeChange={this.onTimeChange} />
-                    <MapElement className={localStorage.getItem('hint')  ? '' : 'blur'} finalSong={finalSong} onPlaceChange={this.onPlaceChange} stateForPopUp={this.state.place}/>
-                </main>
+            {this.state.width > 960 ? (
+                <div id='mainVersia' style={{display: this.state.width < 960 ? 'none' : 'block'}}>
+                    <Loader isLoading={this.state.isLoading} />
+                    <PopUp finalSong={finalSong} stateForPopUp={this.state.place}> </PopUp>
+                    <Hint1 isLoading={this.state.isLoading} onHintChange={this.onHintChange}/>
+                    <main >
+                        <SidebarWrapper
+                            width={this.state.width}
+                            finalSong={finalSong}>
+                        </SidebarWrapper>
+                        <SelectWrapper 
+                            items={this.items}
+                            active={0}
+                            decade={0}
+                            onTimeChange={this.onTimeChange} />
+                        <MapElement className={localStorage.getItem('hint')  ? '' : 'blur'} finalSong={finalSong} onPlaceChange={this.onPlaceChange} stateForPopUp={this.state.place}/>
+                    </main>
+                </div>
+            ) :
+            (
+                <div id='mobVersia' style={{display: this.state.width < 960 ? 'block' : 'none'}}>
+                    <Loader isLoading={this.state.isLoading} />
+                    <Mob width={this.state.width}/>
+                </div>
+            )}
             </React.Fragment>
         )
     }
