@@ -220,7 +220,7 @@ export function SideBar() {
 
     function closeSidebar(e) {
 
-        if (e.target.closest('.sidebar-content')) 
+        if (e.target.closest('.sidebar-content') || e.target.closest('path') || e.target.closest("#carousel")) 
             return;
         if (animating) 
             return;
