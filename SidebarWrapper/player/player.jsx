@@ -17,6 +17,7 @@ export class Player extends React.Component {
         this.youTubePlayerPlay = this.youTubePlayerPlay.bind(this);
         this.onStateChange =  this.onStateChange.bind(this);
         this.transitionName = null;
+        this.changeStatePage = this.changeStatePage.bind(this);
     }
     componentDidMount() {
         if (!youTubePlayer) {
@@ -157,14 +158,33 @@ export class Player extends React.Component {
     openDetail(){
         document.getElementById('descriptionSong').classList.toggle('show');
     }
-    
+    changeStatePage(){
+        this.pageState = !this.props.state;
+        this.props.getStatePage(this.pageState)
+    }
     render() {
+        // console.log(this.pageState)
         return (
             <div className="wrapper-player">
                     <div className="player">
                         <div id="YouTube-player" style={{display: 'none'}}></div>
+
+                       
+
                         <div className="player__top">
                             <div className="player-cover">
+                            <div id="button-back" style={{display: this.props.width < 960 ? 'flex': 'none'}}>
+                            <div id='buttonBack' onClick={this.changeStatePage}>
+                                <div className="wrapperButtonBack">
+                                    <svg className="arrow-animate arrow-left" width="18px" height="17px" viewBox="-1 0 18 17" version="1.1">
+                                        <g>
+                                            <polygon className="arrow" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596" />
+                                            <polygon className="arrow-fixed " points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596" />
+                                        </g>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
                                 <transition-group name="transitionName">
                                     <div className="player-cover__item" style={{ backgroundImage: `url(${this.props.imageUrl})`}}></div>
                                 </transition-group>
