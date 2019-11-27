@@ -14,23 +14,25 @@ export class Hint1 extends React.Component {
         hint1.remove();
         hintState = true
         this.props.onHintChange(hintState);
-        localStorage.setItem('hint', true);
+        // localStorage.setItem('hint', true);
     }
     
     hendlerDelateSecond(){
         hint2.remove();
         hintState = 'true'
         this.props.onHintChange(hintState);
+        sidebar.style.pointerEvents = 'none';
     }
 
     hendlerDelateThird(){
+        sidebar.style.pointerEvents = 'auto';
         hint3.remove();
         hintState = 'false'
         this.props.onHintChange(hintState);
     }
     
     render(){
-        // localStorage.clear()
+        localStorage.clear()
         return (
             <React.Fragment>
                 <Hint 
