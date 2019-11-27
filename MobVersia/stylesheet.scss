@@ -11,19 +11,14 @@
        overflow: visible;
     }
     font-family:'Compressa VF';
-    display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     position: relative;
     height: 100vh;
     width: 100%;
     background: #ffffff;
     color: rgb(255, 255, 255);
     text-align: center;
-    // input {
-    //     width: 200px;
-    // }
     background-color:#e3e0cf;
     background-image: url('../img/3049868.svg');
     background-repeat: no-repeat;
@@ -80,6 +75,9 @@
 }
 .conclusions {
     justify-self: flex-end;
+    position: absolute;
+    bottom: 50px;
+    width: 100%;
 }
 #posSVG{
    

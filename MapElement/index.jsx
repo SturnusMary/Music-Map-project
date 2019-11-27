@@ -1119,7 +1119,7 @@ export class MapElement extends React.Component {
                         id="ZW"/>
                         </g>
                 </svg>
-
+            
                 </div>
             </div>
         )

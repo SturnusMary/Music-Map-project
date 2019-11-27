@@ -175,6 +175,8 @@ export class Player extends React.Component {
     changeStatePage(){
         this.pageState = !this.props.state;
         this.props.getStatePage(this.pageState)
+
+        document.getElementById('descriptionSong').classList.remove('show');
     }
 
     render() {
