@@ -75,21 +75,28 @@ body {
 }
                                                        /*TITLE ABOVE MAP */
 #title {
+    pointer-events: none;
     margin-top: 20px;
-   // position: absolute;
     z-index: -1;
     height: 100px;
     margin-bottom: 10px;
     color: rgb(255, 255, 255);
-        // @include middle-position;
     font: 800 2.7rem Montserrat, sans-serif;
     letter-spacing: -0.07ex;
     animation: anim 1.5s infinite alternate ease-in-out;
+    
+    &::selection {
+        background: none;
+    }
+
     span {
         color: #e05915;
         display: inline;
+        &::selection {
+            background: none;
+        }
     }
-        // canvas :;
+
     @media(min-width: 320px)and (max-width: 960px){
         z-index: 0;
     }
@@ -97,13 +104,7 @@ body {
     @media (min-width: 992px){
         position: absolute;
         top: 10px;
-        //width: 100%;
-        display: flex;
-        justify-content: center;
     }
-
-    //     height: 300px;
-    // }
 }
  
 @keyframes anim {
