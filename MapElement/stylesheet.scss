@@ -108,11 +108,11 @@ body {
         }
     }
 
-    @media(min-width: 320px)and (max-width: 960px){
+    @media(min-width: 320px)and (max-width: 993px){
         z-index: 0;
     }
 
-    @media (min-width: 992px){
+    @media (min-width: 993px){
         position: absolute;
         top: 10px;
     }

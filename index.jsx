@@ -115,7 +115,7 @@ class App extends React.Component {
     
         return(
             <React.Fragment>
-            {this.state.width > 960 ? (
+            {this.state.width > 992 ? (
                 <div id='mainVersia'>
                     <Loader isLoading={this.state.isLoading} />
                     
