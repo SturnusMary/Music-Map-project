@@ -9,7 +9,7 @@ let songUrl;
 export class Player extends React.Component {
     constructor(props) {
         super(props);
-        this.state = ({valueTime: '0', valueVolume: '', duration: ''});
+        this.state = ({valueTime: '0', valueVolume: '', duration: '', });
         this.youTubePlayerCurrentTimeChange = this.youTubePlayerCurrentTimeChange.bind(this);
         this.youTubePlayerVolumeChange = this.youTubePlayerVolumeChange.bind(this);
         this.youTubePlayerDisplayInfos = this.youTubePlayerDisplayInfos.bind(this);
@@ -23,6 +23,7 @@ export class Player extends React.Component {
 
         this.dbOfSongs = db.songs;
         this.youTubePlayerRandom = this.youTubePlayerRandom.bind(this);
+        this.random = false;
     }
     
     componentDidMount() {
@@ -80,6 +81,7 @@ export class Player extends React.Component {
 
     componentDidUpdate() {
         if (this.props.src !== this.lastVideoId) {
+            this.random = false;
             this.youTubePlayer.loadVideoById(
                 {suggestedQuality: 'tiny', videoId: `${this.props.src}`}
             );
@@ -190,14 +192,15 @@ export class Player extends React.Component {
         let rand = Math.floor(Math.random() * this.dbOfSongs.length);
         randomObj = this.dbOfSongs[rand];
         songUrl = getDataId(randomObj);
+        this.random = true;
        
         if (this.youTubePlayerActive()) {
             this.youTubePlayer.loadVideoById(
                 {suggestedQuality: 'tiny', videoId: `${songUrl}`}
             );
         }
-        this.buttonDisabled();
 
+        this.buttonDisabled();
         this.imageUrl = randomObj.imageUrl;
         this.artist = randomObj.artist;
         this.title = randomObj.title;
@@ -209,7 +212,6 @@ export class Player extends React.Component {
     }
 
     render() {
-        
         return (
             <div className="wrapper-player">
                     <div className="player">
@@ -229,7 +231,7 @@ export class Player extends React.Component {
                             </div>
                         </div>
                                 <transition-group name="transitionName">
-                                    <div className="player-cover__item" style={{ backgroundImage: `url(${this.props.imageUrl || this.imageUrl})`}}></div>
+                                    <div className="player-cover__item" style={{ backgroundImage: !this.random ? `url(${this.props.imageUrl})` : `url(${this.imageUrl})` }}></div>
                                 </transition-group>
                             </div>
                             <div className="player-controls">
@@ -267,8 +269,8 @@ export class Player extends React.Component {
                         <div className="progress">
                             <div className="progress__top">
                                 <div className="album-info">
-                                    <div className="album-info__name">{this.props.artist || this.artist}</div>
-                                    <div className="album-info__track">{this.props.title || this.title}</div>
+                                    <div className="album-info__name">{!this.random ? this.props.artist : this.artist}</div>
+                                    <div className="album-info__track">{!this.random ? this.props.title : this.title}</div>
                                 </div>
                                 <div className="progress__duration">{this.duration}</div>
                             </div>
@@ -290,11 +292,11 @@ export class Player extends React.Component {
                 </div>           
                 <span onClick={this.openDetail} className="titleDetail">More detail</span>
                 <div className="descriptionSong" id='descriptionSong'>
-                    <div><span>Country:</span> {this.props.country || this.country ? this.props.country || this.country : 'no information'},</div>
-                    <div><span>Release:</span> {this.props.releaseDate || this.releaseDate ? this.props.releaseDate || this.releaseDate: 'no information'},</div>
-                    <div><span>Album:</span> {this.props.album || this.album ? this.props.album || this.album: 'no information'},</div>
-                    <div><span>Author/Composer:</span> {this.props.authorComposer || this.authorComposer ? this.props.authorComposer || this.authorComposer: 'no information'},</div>
-                    <div><span>Details:</span> {this.props.details || this.details ? this.props.details || this.details: 'no information'}.</div>
+                    <div><span>Country:</span> {!this.random ? (this.props.country ? this.props.country : 'no information') : (this.country ? this.country : 'no information')},</div>
+                    <div><span>Release:</span> {!this.random ? (this.props.releaseDate? this.props.releaseDate: 'no information') : (this.releaseDate? this.releaseDate: 'no information')},</div>
+                    <div><span>Album:</span> {!this.random ? (this.props.album? this.props.album: 'no information') : (this.album? this.album: 'no information')},</div>
+                    <div><span>Author/Composer:</span> {!this.random ? (this.props.authorComposer? this.props.authorComposer: 'no information') : (this.authorComposer? this.authorComposer: 'no information')},</div>
+                    <div><span>Details:</span>{!this.random ? (this.props.details? this.props.details: 'no information') : (this.details? this.details: 'no information')}.</div>
                 </div>
             </div>
         )
