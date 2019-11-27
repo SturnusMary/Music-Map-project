@@ -11,7 +11,7 @@ export class PopUp extends React.Component {
       clearTimeout(this.timerID);
         let PopUpElement = document.querySelector('.pop-up-explanation');
         if( !this.props.finalSong && this.props.stateForPopUp ) {
-            PopUpElement.style.display = 'block';
+            PopUpElement.style.display = 'flex';
             this.timerID = setTimeout(this.displayNone, 3000);
         }
     }
@@ -19,7 +19,7 @@ export class PopUp extends React.Component {
   render(){
     return(
         <React.Fragment>
-            <div style={{ display: !this.props.finalSong && this.props.stateForPopUp  ? 'block' : 'none'}} className="pop-up-explanation">
+            <div style={{ display: !this.props.finalSong && this.props.stateForPopUp  ? 'flex' : 'none'}} className="pop-up-explanation">
               <svg id="modal" xmlns="http://www.w3.org/2000/svg" width='500' height='500' version="1.1" x="0" y="0" viewBox="0 0 120 120" enableBackground="new 0 0 120 120" xmlSpace="preserve">
                 <defs>
                   <clipPath id="circle-clip">

@@ -6,7 +6,6 @@ import {SidebarWrapper} from './SidebarWrapper/index';
 import {SelectWrapper} from './SelectWrapper/index';
 import {Loader} from './Loader/index';
 import 'regenerator-runtime/runtime';
-import {PopUp} from './elements/modal';
 import {Hint1} from './elements/hint';
 import {Mob} from './MobVersia/mob';
 import db from './db.json';
@@ -113,15 +112,15 @@ class App extends React.Component {
         const songs  = FilterByTime(this.state.time || 1900);
         let  finalSong = FilterByPlace(this.state.place || null, songs);
         let highlightCountries = this.highlightPlaces(songs);
-
+    
         return(
             <React.Fragment>
             {this.state.width > 960 ? (
                 <div id='mainVersia'>
                     <Loader isLoading={this.state.isLoading} />
-                    <PopUp finalSong={finalSong} stateForPopUp={this.state.place}> </PopUp>
+                    
                     <Hint1 isLoading={this.state.isLoading} onHintChange={this.onHintChange}/>
-                    <main >
+                    <main>
                         <SidebarWrapper
                             width={this.state.width}
                             finalSong={finalSong}>

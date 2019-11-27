@@ -33,10 +33,8 @@ export class Mob extends React.Component {
     handleDecade(decade){this.setState({decade,})}
 
     render(){
-        console.log(this.state.displayPage);
         const songs  = FilterByTime(this.state.decade || null);
         let finalSong = FilterByPlace(this.state.countryName || null, songs);
-        console.log(finalSong);
         return (
             <React.Fragment >
                <div id='inputData' style={{display: this.state.displayPage ? 'none': 'flex'}}>

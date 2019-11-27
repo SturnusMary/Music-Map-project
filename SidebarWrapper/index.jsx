@@ -4,42 +4,29 @@ import PropTypes from 'prop-types';
 import {Player} from './player/player';
 import {SideBar} from './sideBar'
 import 'regenerator-runtime/runtime';
+import {getDataId} from '../elements/getDataId';
 
 export class SidebarWrapper extends React.Component {
    constructor(props){
       super(props);
-      this.getData = this.getData.bind(this);
       this.state = {
          displayPage: 'd',
      }
      this.handlerDisplayPage = this.handlerDisplayPage.bind(this);
    }
+
    async handlerDisplayPage(displayPage){
       await this.setState({displayPage,})
       this.props.getStatePage(this.state.displayPage);
    }
+
    componentDidMount(){
       this.SideBar = SideBar();
-      console.log('asd')
    }
 
-   getData (obj) {
-     let url;
-      for(let key in obj) {
-
-         if(key == 'songUrl') {
-            url = obj[key].split('https://youtube.com/embed/')[1];
-            return url;
-          }
-      }
-      
-   }
-  
    render() {
-      // console.log(this.state.displayPage)
-      const  songUrl = this.getData(this.props.finalSong);
+      const  songUrl = getDataId(this.props.finalSong);
         return(
-
          <React.Fragment>
             <svg className="arrow-animate arrow-top" width="18px" height="17px" viewBox="-1 0 18 17" version="1.1">
                <g>

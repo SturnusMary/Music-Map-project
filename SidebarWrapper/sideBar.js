@@ -88,8 +88,6 @@ export function SideBar() {
 
         let mouseDownlistener = function (e) {
 
-            console.log('mouseDown')
-
             startX = typeof e.pageX === 'number'
                 ? e.pageX
                 : e

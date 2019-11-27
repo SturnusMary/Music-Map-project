@@ -2,7 +2,7 @@ import React from 'react';
 import './stylesheet.scss';
 import PropTypes from 'prop-types';
 import {zoom} from "./zoom/index";
-
+import {PopUp} from '../elements/modal';
 export class MapElement extends React.Component {
     constructor(props){
         super(props);
@@ -78,6 +78,7 @@ export class MapElement extends React.Component {
         return (
             <div id = "wrapperMap" className={this.props.className}>
             <div id="title">LET THE MUSIC <span>PLAY</span></div>
+            <PopUp finalSong={this.props.finalSong} stateForPopUp={this.props.stateForPopUp} />
             <span id="zoomValue"></span>
                 <div id="svgContainer">
                 <svg className={!this.props.finalSong && this.props.stateForPopUp ? 'blur-in' : ''}
