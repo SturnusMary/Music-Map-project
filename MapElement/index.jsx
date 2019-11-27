@@ -1,10 +1,7 @@
 import React from 'react';
-import s from './stylesheet.scss';
+import './stylesheet.scss';
 import PropTypes from 'prop-types';
-import {TextAnimation} from './animationTitle';
 import {zoom} from "./zoom/index";
-
-let selectedTd;
 
 export class MapElement extends React.Component {
     constructor(props){
@@ -52,12 +49,12 @@ export class MapElement extends React.Component {
     }
 
     highlight(path){
-        if (selectedTd) { 
-            selectedTd.classList.remove('highlight');
+        if (this.selectedTd) { 
+            this.selectedTd.classList.remove('highlight');
         }
 
-        selectedTd = path;
-        selectedTd.classList.add('highlight');
+        this.selectedTd = path;
+        this.selectedTd.classList.add('highlight');
     }
 
     componentDidUpdate(){
@@ -80,8 +77,8 @@ export class MapElement extends React.Component {
     render() {
         return (
             <div id = "wrapperMap" className={this.props.className}>
-            <TextAnimation />
-            <span id="zoomValue">1</span>
+            <div id="title">LET THE MUSIC <span>PLAY</span></div>
+            <span id="zoomValue"></span>
                 <div id="svgContainer">
                 <svg className={!this.props.finalSong && this.props.stateForPopUp ? 'blur-in' : ''}
                     onClick={this.handleClickMap}

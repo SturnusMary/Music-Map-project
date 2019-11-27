@@ -40,6 +40,7 @@ export class Mob extends React.Component {
         return (
             <React.Fragment >
                <div id='inputData' style={{display: this.state.displayPage ? 'none': 'flex'}}>
+                    <div id="title">LET THE MUSIC <span>PLAY</span></div>
                     <div className="App-Component ComponentFirst" >
                         <AutoCompleteText text='dynamic text' id='country' htmlFor='country' suggestions={countries} getInformation={this.handleCountryName}>
                         Enter the name of the country

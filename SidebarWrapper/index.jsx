@@ -3,7 +3,6 @@ import s from './stylesheet.scss';
 import PropTypes from 'prop-types';
 import {Player} from './player/player';
 import {SideBar} from './sideBar'
-
 import 'regenerator-runtime/runtime';
 
 export class SidebarWrapper extends React.Component {

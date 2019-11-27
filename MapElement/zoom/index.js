@@ -64,7 +64,7 @@ export function zoom() {
             };
         }
         scale = svgSize.w / viewBox.w;
-        zoomValue.innerText = `${Math.round(scale * 100) / 100}`;
+        zoomValue.innerText = `${(Math.round(scale * 100) / 100) <= 1 ? '': 'Zoom:' + Math.round(scale * 100) / 100} `;
         svgImage.setAttribute(
             'viewBox',
             `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`
