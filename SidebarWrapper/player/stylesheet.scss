@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
   }
-////////////////////////////////////////////////////////////////////////*BUTTON*/
+
 .player-controls {
 
     &__item{
@@ -27,7 +27,7 @@
         width: 100%;
         @include flex;
         min-height: 100vh;
-        min-width:388px;
+        min-width:100%;
         background-size: cover;
 
         @media(max-width:992px){
@@ -87,8 +87,8 @@
       }
       @media(min-width:992px){
         height: 37vh;
-        min-width: 354px;
       }
+
 
   
       &__item {
@@ -144,14 +144,12 @@
     &-controls {
       flex: 1;
       display: flex;
-      //flex-direction: column;
       align-items: center;
       justify-content: space-around;
-      //max-width: 68px;
+
   
       &-range   {
         width: 100px;
-        //transform: rotate(-90deg);
        
   }
       @media screen and (max-width: 576px), (max-height: 500px) {
@@ -467,7 +465,7 @@
     animation-fill-mode: forwards ;
     padding-left: 15px;
     line-height: 25px;
-    visibility: hidden;
+    //visibility: hidden;
   
     div {
       font-size: 17px;
@@ -485,10 +483,11 @@
     &.show{
       display: flex;
       flex-direction: column;
-      visibility: visible;
+      padding-top: 25px;
+      //visibility: visible;
 
       @media(max-width: 576px){
-        max-height: 130px;
+        max-height: 100px;
         margin: 0;
         width: 100%;
       } 
@@ -500,13 +499,13 @@
       height: 0px;
     }
     to {
-      height: 150px;
+      height: 100px;
     }
   }
   
   @keyframes moveUp{
     from {
-      height: 150px;
+      height: 100px;
     }
     to {
       height: 0px;
