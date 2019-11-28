@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './stylesheet.scss';
 import db from '../../db.json';
 import {getDataId} from '../../elements/getDataId';
+import  vinyl from '../../img/vinyl2.jpg'
 
 let randomObj;
 let songUrl;
@@ -231,7 +232,7 @@ export class Player extends React.Component {
                             </div>
                         </div>
                                 <transition-group name="transitionName">
-                                    <div className="player-cover__item" style={{ backgroundImage: !this.random ? `url(${this.props.imageUrl})` : `url(${this.imageUrl})` }}></div>
+                                    <div className="player-cover__item" style={{ backgroundImage: !this.random ? (this.props.imageUrl ? `url(${this.props.imageUrl})` : `url(${vinyl})`) : `url(${this.imageUrl})` }}></div>
                                 </transition-group>
                             </div>
                             <div className="player-controls">
