@@ -5,25 +5,27 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel ./index.html",
-    "built": "rimraf dist && parcel built ./index.html",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rimraf dist && parcel build ./index.html",
+    "deploy": "gh-pages dist -d "
   },
   "author": "",
   "license": "ISC",
+  "homepage": "https://sturnusmary.github.io/Music-Map-project/",
   "devDependencies": {
     "@babel/core": "^7.7.4",
     "@babel/preset-react": "^7.7.4",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "gh-pages": "^2.1.1",
     "parcel": "^1.12.4",
     "rimraf": "^3.0.0",
-    "sass": "^1.23.0"
-  },
-  "dependencies": {
+    "sass": "^1.23.0",
     "postcss-modules": "^1.4.1",
     "prop-types": "^15.7.2",
+    "uuid": "^3.3.3"
+  },
+  "dependencies": {
     "react": "^16.11.0",
     "react-addons-css-transition-group": "^15.6.2",
-    "react-dom": "^16.11.0",
-    "uuid": "^3.3.3"
+    "react-dom": "^16.11.0"
   }
 }
