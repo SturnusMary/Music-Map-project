@@ -298,53 +298,6 @@
     }
   }
 
-  /////////////////////////////////////////////////////////////////////////scale
-//   .scale {
-//     &-out {
-//         &-enter {
-//             transform: scale(.55);
-//             pointer-events: none;
-//             opacity: 0;
-
-//             &-active {
-//                 transition: all 0.35s ease-in-out;
-//             }
-//         }
-//         &-leave {
-//             &-active {
-//                 transition: all 0.35s ease-in-out;
-//             }
-//             &-to {
-//                 transform: scale(1.2);
-//                 pointer-events: none;
-//                 opacity: 0;
-//             }
-//         }
-//     }
-
-//     &-in {
-//         &-enter {
-//             transform: scale(1.2);
-//             pointer-events: none;
-//             opacity: 0;
-//             &-active {
-//                 transition: all 0.35s ease-in-out;
-//             }
-//         }
-//         &-leave {
-//             &-active {
-//                 transition: all 0.35s ease-in-out;
-//             }
-//             &-to {
-//                 transform: scale(.55);
-//                 pointer-events: none;
-//                 opacity: 0;
-//             }
-//         }
-//     }
-// }
-  
-  
   /////////////////////////////////////////////////////////////////////////scroll
   
   input[type=range] {
@@ -471,7 +424,6 @@
     animation-fill-mode: forwards ;
     padding-left: 15px;
     line-height: 25px;
-    //visibility: hidden;
     
     div {
       font-size: 17px;
