@@ -1,5 +1,5 @@
 import React from 'react';
-import s from './stylesheet.scss';
+import './stylesheet.scss';
 import PropTypes from 'prop-types';
 
 export function Loader(props) {

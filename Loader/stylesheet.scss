@@ -4,8 +4,8 @@ $colorBackground: #444;
 
 .wrapper-loader {
     background: radial-gradient(#eee, $colorBackground);
-    position: relative;
-    z-index: 10;
+    position: fixed;
+    z-index: 50;
     height: 100vh;
     width: 100vw;
     display: flex;
