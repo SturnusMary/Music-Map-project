@@ -14,7 +14,7 @@ export class Hint1 extends React.Component {
         hint1.remove();
         hintState = true
         this.props.onHintChange(hintState);
-        // localStorage.setItem('hint', true);
+        localStorage.setItem('hint', true);
     }
     
     hendlerDelateSecond(){
@@ -32,7 +32,7 @@ export class Hint1 extends React.Component {
     }
     
     render(){
-        localStorage.clear()
+       // localStorage.clear()
         return (
             <React.Fragment>
                 <Hint 
