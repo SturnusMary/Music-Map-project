@@ -307,11 +307,11 @@ export class Player extends React.Component {
                                             <polygon className="arrow-fixed " points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596" />
                                         </g>
                                     </svg></div> </buttn>
-                    <div><span>Country:</span> {!this.random ? (this.props.country ? this.props.country : 'no information') : (this.country ? this.country : 'no information')},</div>
-                    <div><span>Release:</span> {!this.random ? (this.props.releaseDate? this.props.releaseDate: 'no information') : (this.releaseDate? this.releaseDate: 'no information')},</div>
-                    <div><span>Album:</span> {!this.random ? (this.props.album? this.props.album: 'no information') : (this.album? this.album: 'no information')},</div>
-                    <div><span>Author/Composer:</span> {!this.random ? (this.props.authorComposer? this.props.authorComposer: 'no information') : (this.authorComposer? this.authorComposer: 'no information')},</div>
-                    <div><span>Details:</span>{!this.random ? (this.props.details? this.props.details: 'no information') : (this.details? this.details: 'no information')}.</div>
+                    <div><span>Country:</span> <p>{!this.random ? (this.props.country ? this.props.country : 'no information') : (this.country ? this.country : 'no information')}</p></div>
+                    <div><span>Release:</span>  <p> {!this.random ? (this.props.releaseDate? this.props.releaseDate: 'no information') : (this.releaseDate? this.releaseDate: 'no information')}</p></div>
+                    <div><span>Album:</span>  <p> {!this.random ? (this.props.album? this.props.album: 'no information') : (this.album? this.album: 'no information')}</p></div>
+                    <div><span>Author/Composer:</span>  <p> {!this.random ? (this.props.authorComposer? this.props.authorComposer: 'no information') : (this.authorComposer? this.authorComposer: 'no information')}</p></div>
+                    <div><span>Details:</span> <p> {!this.random ? (this.props.details? this.props.details: 'no information') : (this.details? this.details: 'no information')}</p></div>
                 </div>
             </div>
         )

@@ -428,9 +428,7 @@
       font-weight: 400;
       margin: 0;
       color: #71829e;
-      display: flex;
-      justify-content: center;
-      align-items:center;
+      text-align: center;
       // padding: 5px 0 5px 0;
       
       @media(min-width:1100px) and (max-width:1400px){
@@ -438,12 +436,16 @@
       }
       span {
         font-size: 14px;
-        display: inline-block;
+        display: inline;
         font-weight: 500;
 
         @media(min-width:1100px) and (max-width:1400px){
           font-size: 16px;
         }
+      }
+
+      p{
+        display: inline;
       }
     }
   
@@ -520,7 +522,7 @@
 
 .descriptionSongBack {
   & svg{
-    transform: translateY(-50%) translateX(-3%) rotate(90deg);
+    transform: translateY(-50%) translateX(-5%) rotate(90deg);
   }
 }
 
