@@ -219,6 +219,11 @@ export class Player extends React.Component {
 
     }
 
+    OpenShowModal(){
+        document.getElementById('modal-about').classList.remove('d-none');
+        document.getElementById('modal-about').classList.add('show');
+    }
+
     render() {
         return (
             <div className="wrapper-player">
@@ -226,7 +231,7 @@ export class Player extends React.Component {
                         <div id="YouTube-player" style={{display: 'none'}}></div>
                         <div className="player__top">
                             <div className="player-cover">
-                            <div id="button-back" style={{display: this.props.width < 960 ? 'flex': 'none'}}>
+                            <div id="button-back" style={{display: this.props.width < 992 ? 'flex': 'none'}}>
                             <div id='buttonBack' onClick={this.changeStatePage}>
                                 <div className="wrapperButtonBack">
                                     <svg className="arrow-animate arrow-left" width="18px" height="17px" viewBox="-1 0 18 17" version="1.1">
@@ -300,13 +305,15 @@ export class Player extends React.Component {
                 </div>           
                 <span onClick={this.openDetail} className="titleDetail">More detail</span>
                 <div className="descriptionSong" id='descriptionSong'>
-                    <buttn onClick={this.removeDescriptonSong} className="descriptionSongBack"><div className="wrapperButtonBack">
+                <button id='mobShowAbout' onClick={this.OpenShowModal}>about us</button>
+                    
+                    <button onClick={this.removeDescriptonSong} className="descriptionSongBack"><div className="wrapperButtonBack">
                     <svg className="arrow-animate arrow-left" width="18px" height="17px" viewBox="-1 0 18 17" version="1.1">
                                         <g>
                                             <polygon className="arrow" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596" />
                                             <polygon className="arrow-fixed " points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596" />
                                         </g>
-                                    </svg></div> </buttn>
+                                    </svg></div> </button>
                     <div><span>Country:</span> <p>{!this.random ? (this.props.country ? this.props.country : 'no information') : (this.country ? this.country : 'no information')}</p></div>
                     <div><span>Release:</span>  <p> {!this.random ? (this.props.releaseDate? this.props.releaseDate: 'no information') : (this.releaseDate? this.releaseDate: 'no information')}</p></div>
                     <div><span>Album:</span>  <p> {!this.random ? (this.props.album? this.props.album: 'no information') : (this.album? this.album: 'no information')}</p></div>

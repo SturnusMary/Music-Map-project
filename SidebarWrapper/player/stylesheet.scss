@@ -423,6 +423,34 @@
     transform: translateY(100%);
     z-index: 100;
 
+    & #mobShowAbout{
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      width: 100px;
+      justify-content: center;
+      display: flex;
+      border:none;
+      z-index: 1000;
+      background:#431c5d;
+      border-radius: 10px;
+      padding: 5px 10px;
+      color: #fff;
+      opacity: .2;
+      font: 400 1rem "Montserrat", sans-serif;
+      cursor: pointer;
+
+      transition: all .4s ease-in-out;
+      
+      &:hover{
+          opacity: 1;
+          transition: all .4s ease-in-out;
+      }
+      @media (min-width: 992px){
+        display: none;
+      }
+    }
+
     div {
       font-size: 14px;
       font-weight: 400;

@@ -110,6 +110,10 @@ class App extends React.Component {
         }
 
     }
+    OpenAbout(){
+        document.getElementById('modal-about').classList.remove('d-none');
+        document.getElementById('modal-about').classList.add('show');
+    }
 
     render() {
         const songs  = FilterByTime(this.state.time || 1900);
@@ -135,6 +139,7 @@ class App extends React.Component {
                             onTimeChange={this.onTimeChange} />
                         <MapElement onHintChange={this.onHintChange} className={localStorage.getItem('hint')  ? '' : 'blur'} hint={this.state.hint} finalSong={finalSong} onPlaceChange={this.onPlaceChange} stateForPopUp={this.state.place}/>
                     </main>
+                    <button id='aboute-open' onClick={this.OpenAbout}>aboute us</button>
                     <Aboute></Aboute>
                 </div>
             ) :
@@ -142,6 +147,7 @@ class App extends React.Component {
                 <div id='mobVersia'>
                     <Loader isLoading={this.state.isLoading} />
                     <Mob width={this.state.width}/>
+                    <Aboute></Aboute>
                 </div>
                 
             )}
