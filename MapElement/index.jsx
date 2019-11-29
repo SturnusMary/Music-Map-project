@@ -3,6 +3,8 @@ import './stylesheet.scss';
 import PropTypes from 'prop-types';
 import {zoom} from "./zoom/index";
 import {PopUp} from '../elements/modal';
+import {Hint} from '../elements/hint';
+
 export class MapElement extends React.Component {
     constructor(props){
         super(props);
@@ -11,6 +13,8 @@ export class MapElement extends React.Component {
         }
         this.handleClickMap = this.handleClickMap.bind(this);
         this.highlight = this.highlight.bind(this);
+
+        this.hendlerDelateThird = this.hendlerDelateThird.bind(this);
     }
  
     handleOnmouseover(event){
@@ -34,12 +38,20 @@ export class MapElement extends React.Component {
     }
 
     handleClickMap(){
+      
         const target = event.target.closest('path');
-        if (!target) return;
+        let targetPlace = event.target.id;
+        // if (!target) return;
+        if (!target) {
+            if(!this.props.finalSong){
+                this.selectedTd.classList.remove('highlight');
+                this.props.onPlaceChange(null);
+            }
+        }
+
         if(!map.contains(target)) return;
         this.highlight(target);
 
-        let targetPlace = event.target.id;
         if(targetPlace !== this.state.targetPlace) {
             this.setState({
                 targetPlace: `${targetPlace}`,
@@ -73,14 +85,29 @@ export class MapElement extends React.Component {
     displayNone(){
         map.classList.remove('blur-in');
     }
-
+    hendlerDelateThird(){
+        hint3.remove();
+        let hintState = 'false';
+        this.props.onHintChange(hintState);
+    }
     render() {
+        
         return (
             <div id = "wrapperMap" className={this.props.className}>
             <div id="title">LET THE MUSIC <span>PLAY</span></div>
             <PopUp finalSong={this.props.finalSong} stateForPopUp={this.props.stateForPopUp} />
+          
+            <Hint 
+                id = 'hint3'
+                className = 'hint3-content'
+                onClick={this.hendlerDelateThird}
+                innerStyle = {{display: this.props.hint != 'true' ? 'none' : 'flex'}} 
+                textBtn='Got it!'
+                >There's a music player,<br /> you can listen a piece of music <br />  that is suitable <br />  for the selected criteria </Hint>
+         
             <span id="zoomValue"></span>
-                <div id="svgContainer">
+
+            <div id="svgContainer">
                 <svg className={!this.props.finalSong && this.props.stateForPopUp ? 'blur-in' : ''}
                     onClick={this.handleClickMap}
                     onMouseOver={this.handleOnmouseover}

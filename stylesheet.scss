@@ -178,7 +178,7 @@ h1.stroke span:after {
 #modal {
     fill: $primary;
     width: 12%;
-
+    position: relative;
 }
 
 .logo {
@@ -223,9 +223,9 @@ h1.stroke span:after {
 #hint1{
     right: 100px;
     top: 25%;
-    @media (min-width:1200px){
-        font-size: 30px;
-    }
+    // @media (min-width:1200px){
+    //     font-size: 30px;
+    // }
 }
 #hint3 {
     top: 10%;
@@ -335,4 +335,6 @@ h1.stroke span:after {
     pointer-events: none;
 }
  
-
+#mobVersia{
+    height: 100vh;
+}

@@ -7,6 +7,7 @@ import {SelectWrapper} from './SelectWrapper/index';
 import {Loader} from './Loader/index';
 import 'regenerator-runtime/runtime';
 import {Hint1} from './elements/hint';
+import {Aboute} from './elements/about';
 import {Mob} from './MobVersia/mob';
 import db from './db.json';
 import {FilterByTime} from './elements/filterByTime';
@@ -71,7 +72,9 @@ class App extends React.Component {
             array[i].classList.remove('blur');
         }
             carousel.classList.add('blur');
-            wrapperMap.classList.add('blur');
+            // wrapperMap.classList.add('blur');
+            title.classList.add('blur');
+            svgContainer.classList.add('blur');
         }
 
         if(this.state.hint === 'false') {
@@ -130,8 +133,9 @@ class App extends React.Component {
                             active={0}
                             decade={0}
                             onTimeChange={this.onTimeChange} />
-                        <MapElement className={localStorage.getItem('hint')  ? '' : 'blur'} finalSong={finalSong} onPlaceChange={this.onPlaceChange} stateForPopUp={this.state.place}/>
+                        <MapElement onHintChange={this.onHintChange} className={localStorage.getItem('hint')  ? '' : 'blur'} hint={this.state.hint} finalSong={finalSong} onPlaceChange={this.onPlaceChange} stateForPopUp={this.state.place}/>
                     </main>
+                    <Aboute></Aboute>
                 </div>
             ) :
             (
@@ -139,6 +143,7 @@ class App extends React.Component {
                     <Loader isLoading={this.state.isLoading} />
                     <Mob width={this.state.width}/>
                 </div>
+                
             )}
             </React.Fragment>
         )

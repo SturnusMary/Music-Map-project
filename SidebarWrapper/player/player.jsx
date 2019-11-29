@@ -25,6 +25,7 @@ export class Player extends React.Component {
         this.dbOfSongs = db.songs;
         this.youTubePlayerRandom = this.youTubePlayerRandom.bind(this);
         this.random = false;
+        this.removeDescriptonSong= this.removeDescriptonSong.bind(this);
     }
     
     componentDidMount() {
@@ -212,6 +213,12 @@ export class Player extends React.Component {
         this.details = randomObj.details;
     }
 
+    removeDescriptonSong(){
+
+        document.getElementById('descriptionSong').classList.remove('show')
+
+    }
+
     render() {
         return (
             <div className="wrapper-player">
@@ -293,6 +300,13 @@ export class Player extends React.Component {
                 </div>           
                 <span onClick={this.openDetail} className="titleDetail">More detail</span>
                 <div className="descriptionSong" id='descriptionSong'>
+                    <buttn onClick={this.removeDescriptonSong} className="descriptionSongBack"><div className="wrapperButtonBack">
+                    <svg className="arrow-animate arrow-left" width="18px" height="17px" viewBox="-1 0 18 17" version="1.1">
+                                        <g>
+                                            <polygon className="arrow" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596" />
+                                            <polygon className="arrow-fixed " points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596" />
+                                        </g>
+                                    </svg></div> </buttn>
                     <div><span>Country:</span> {!this.random ? (this.props.country ? this.props.country : 'no information') : (this.country ? this.country : 'no information')},</div>
                     <div><span>Release:</span> {!this.random ? (this.props.releaseDate? this.props.releaseDate: 'no information') : (this.releaseDate? this.releaseDate: 'no information')},</div>
                     <div><span>Album:</span> {!this.random ? (this.props.album? this.props.album: 'no information') : (this.album? this.album: 'no information')},</div>
