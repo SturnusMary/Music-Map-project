@@ -7,7 +7,7 @@ import {SelectWrapper} from './SelectWrapper/index';
 import {Loader} from './Loader/index';
 import 'regenerator-runtime/runtime';
 import {Hint1} from './elements/hint';
-import {Aboute} from './elements/about';
+// import {About} from './elements/about';
 import {Mob} from './MobVersia/mob';
 import db from './db.json';
 import {FilterByTime} from './elements/filterByTime';
@@ -139,15 +139,15 @@ class App extends React.Component {
                             onTimeChange={this.onTimeChange} />
                         <MapElement onHintChange={this.onHintChange} className={localStorage.getItem('hint')  ? '' : 'blur'} hint={this.state.hint} finalSong={finalSong} onPlaceChange={this.onPlaceChange} stateForPopUp={this.state.place}/>
                     </main>
-                    <button id='aboute-open' onClick={this.OpenAbout}>aboute us</button>
-                    <Aboute></Aboute>
+                    {/* <button id='About-open' onClick={this.OpenAbout}>about us</button>
+                    <About></About> */}
                 </div>
             ) :
             (
                 <div id='mobVersia'>
                     <Loader isLoading={this.state.isLoading} />
                     <Mob width={this.state.width}/>
-                    <Aboute></Aboute>
+                    <About></About>
                 </div>
                 
             )}

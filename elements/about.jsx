@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import aboutBG from "../img/about-head.jpg";
 import s from './about.scss'
 
-export class Aboute extends React.Component {
+export class About extends React.Component {
     constructor() {
         super()
         this.usersList = ['SturnusMary', 'VlasenkoErroga'];
@@ -138,4 +138,4 @@ export class Aboute extends React.Component {
     }
 }
 
-Aboute.propType = {}
+About.propType = {}
